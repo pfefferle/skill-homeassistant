@@ -484,7 +484,7 @@ class HomeAssistantSkill(FallbackSkill):
             if len(quantity) > 0:
                 quantity = quantity[0]
                 if (quantity.unit.name != "dimensionless" and
-                        quantity.uncertainty <= 0.5):
+                        (quantity.uncertainty != None and quantity.uncertainty <= 0.5)):
                     sensor_unit = quantity.unit.name
                     sensor_state = quantity.value
 
