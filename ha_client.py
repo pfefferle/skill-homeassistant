@@ -113,7 +113,7 @@ class HomeAssistantClient(object):
                         else:
                             unit_measur = entity_attrs['unit_of_measurement']
                     except KeyError:
-                        unit_measur = None
+                        unit_measur = ""
                     # IDEA: return the color if available
                     # TODO: change to return the whole attr dictionary =>
                     # free use within handle methods
