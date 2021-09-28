@@ -377,7 +377,7 @@ class HomeAssistantSkill(FallbackSkill):
                                   data=ha_entity)
             else:
                 light_attrs = self.ha.find_entity_attr(ha_entity['id'])
-                if light_attrs['unit_measure'] is "":
+                if light_attrs['unit_measure'] == "":
                     self.speak_dialog(
                         'homeassistant.brightness.cantdim.dimmable',
                         data=ha_entity)
@@ -399,7 +399,7 @@ class HomeAssistantSkill(FallbackSkill):
                     data=ha_entity)
             else:
                 light_attrs = self.ha.find_entity_attr(ha_entity['id'])
-                if light_attrs['unit_measure'] is "":
+                if light_attrs['unit_measure'] == "":
                     self.speak_dialog(
                         'homeassistant.brightness.cantdim.dimmable',
                         data=ha_entity)
@@ -455,7 +455,7 @@ class HomeAssistantSkill(FallbackSkill):
         entity = message.data["Entity"]
         self.log.debug("Entity: %s" % entity)
 
-        ha_entity = self._find_entity(entity, ['sensor', 'switch'])
+        ha_entity = self._find_entity(entity, ['climate', 'sensor', 'switch'])
         # Exit if entiti not found or is unavailabe
         if not ha_entity or not self._check_availability(ha_entity):
             return
