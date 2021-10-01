@@ -77,8 +77,7 @@ def handle_lighting_intent(self, message):
  * Script intents processing
  * New intent for opening/closing cover entities
  * New intent for locking/unlocking lock entities (with added security?)
- * New intent for thermostat values, raising, etc.
  * New intent to handle multimedia/kodi
 
 ## In Development
-* Increasing and Decreasing Climate controls
+ * A lot of small stuffs
