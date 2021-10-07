@@ -187,6 +187,14 @@ class HomeAssistantSkill(FallbackSkill):
         message.data["Action"] = "close_cover"
         self._handle_cover_actions(message)
 
+    @intent_handler('cover.stop.intent')
+    def handle_close_cover(self, message):
+        self.log.debug(message.data)
+        self.log.debug("Close stop: "+message.data.get("entity"))
+        message.data["Entity"] = message.data.get("entity")
+        message.data["Action"] = "stop_cover"
+        self._handle_cover_actions(message)
+
     @intent_handler('toggle.intent')
     def handle_toggle_intent(self, message):
         self.log.debug("Toggle intent on entity: " + message.data.get("entity"))
