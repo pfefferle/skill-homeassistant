@@ -367,7 +367,7 @@ class HomeAssistantSkill(FallbackSkill):
     def _handle_cover_actions(self, message):
         entity = message.data["Entity"]
         action = message.data["Action"]
-        ha_entity = self._find_entity(entity, ['group', 'light'])
+        ha_entity = self._find_entity(entity, ['cover'])
         # Exit if entiti not found or is unavailabe
         if not ha_entity or not self._check_availability(ha_entity):
             return
