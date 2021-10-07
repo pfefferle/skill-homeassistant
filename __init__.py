@@ -491,13 +491,13 @@ class HomeAssistantSkill(FallbackSkill):
 
         try:
             value = float(sensor_state)
-            sensor_state = nice_number(value, lang=self.language)
+            sensor_state = nice_number(value)
         except ValueError:
             pass
 
         if domain == "climate" and sensor_state != '':
-            current_temp = nice_number((float(attributes['current_temperature'])), lang=self.language)
-            target_temp = nice_number((float(attributes['temperature'])), lang=self.language)
+            current_temp = nice_number((float(attributes['current_temperature'])))
+            target_temp = nice_number((float(attributes['temperature'])))
             self.speak_dialog('homeassistant.sensor.thermostat', data={
                 "dev_name": sensor_name,
                 "value": sensor_state,
