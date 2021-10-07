@@ -499,10 +499,10 @@ class HomeAssistantSkill(FallbackSkill):
             current_temp = nice_number((float(attributes['current_temperature'])), lang=self.language)
             target_temp = nice_number((float(attributes['temperature'])), lang=self.language)
             self.speak_dialog('homeassistant.sensor.thermostat', data={
-            "dev_name": sensor_name,
-            "value": sensor_state,
-            "current_temp": current_temp,
-            "targeted_temp": target_temp})
+                "dev_name": sensor_name,
+                "value": sensor_state,
+                "current_temp": current_temp,
+                "targeted_temp": target_temp})
         else:
             self.speak_dialog('homeassistant.sensor', data={
                 "dev_name": sensor_name,
