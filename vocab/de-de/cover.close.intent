@@ -1,1 +1,5 @@
-öffne {Entity}
+(den|die|das|) {entity} schließen
+kannst du (den|die|das|) {entity} (bitte|) schließen
+Kannst du (den|die|das|) {entity} schließen (bitte|)
+ich möchte (gerne|) (den|die|das|) (jetzt|) {entity} (bitte|) schließen
+schließe {entity}
