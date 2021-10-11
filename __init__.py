@@ -540,6 +540,9 @@ class HomeAssistantSkill(FallbackSkill):
                 "value": sensor_state,
                 "current_temp": current_temp,
                 "targeted_temp": target_temp})
+        elif domain == "cover":
+            self.speak_dialog('homeassistant.sensor.cover.%s' % sensor_state, data={
+                "dev_name": sensor_name})
         else:
             self.speak_dialog('homeassistant.sensor', data={
                 "dev_name": sensor_name,
