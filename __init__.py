@@ -414,7 +414,7 @@ class HomeAssistantSkill(FallbackSkill):
                                   data=ha_entity)
             else:
                 light_attrs = self.ha.find_entity_attr(ha_entity['id'])
-                if light_attrs['unit_measure'] is None:
+                if light_attrs['unit_measure'] == "":
                     self.speak_dialog(
                         'homeassistant.brightness.cantdim.dimmable',
                         data=ha_entity)
@@ -436,7 +436,7 @@ class HomeAssistantSkill(FallbackSkill):
                     data=ha_entity)
             else:
                 light_attrs = self.ha.find_entity_attr(ha_entity['id'])
-                if light_attrs['unit_measure'] is None:
+                if light_attrs['unit_measure'] == "":
                     self.speak_dialog(
                         'homeassistant.brightness.cantdim.dimmable',
                         data=ha_entity)
@@ -492,12 +492,14 @@ class HomeAssistantSkill(FallbackSkill):
         entity = message.data["Entity"]
         self.log.debug("Entity: %s" % entity)
 
-        ha_entity = self._find_entity(entity, ['sensor', 'switch'])
+        ha_entity = self._find_entity(entity, ['climate', 'sensor', 'switch'])
         # Exit if entiti not found or is unavailabe
         if not ha_entity or not self._check_availability(ha_entity):
             return
 
         entity = ha_entity['id']
+        domain = entity.split(".")[0]
+        attributes = ha_entity['attributes']
 
         # IDEA: set context for 'read it out again' or similar
         # self.set_context('Entity', ha_entity['dev_name'])
@@ -520,8 +522,7 @@ class HomeAssistantSkill(FallbackSkill):
                 sensor_name, sensor_state, sensor_unit)))
             if len(quantity) > 0:
                 quantity = quantity[0]
-                if (quantity.unit.name != "dimensionless" and
-                        quantity.uncertainty <= 0.5):
+                if (quantity.unit.name != "dimensionless"):
                     sensor_unit = quantity.unit.name
                     sensor_state = quantity.value
 
@@ -531,10 +532,19 @@ class HomeAssistantSkill(FallbackSkill):
         except ValueError:
             pass
 
-        self.speak_dialog('homeassistant.sensor', data={
-            "dev_name": sensor_name,
-            "value": sensor_state,
-            "unit": sensor_unit})
+        if domain == "climate" and sensor_state != '':
+            current_temp = nice_number((float(attributes['current_temperature'])))
+            target_temp = nice_number((float(attributes['temperature'])))
+            self.speak_dialog('homeassistant.sensor.thermostat', data={
+                "dev_name": sensor_name,
+                "value": sensor_state,
+                "current_temp": current_temp,
+                "targeted_temp": target_temp})
+        else:
+            self.speak_dialog('homeassistant.sensor', data={
+                "dev_name": sensor_name,
+                "value": sensor_state,
+                "unit": sensor_unit})
         # IDEA: Add some context if the person wants to look the unit up
         # Maybe also change to name
         # if one wants to look up "outside temperature"

@@ -77,7 +77,8 @@ class HomeAssistantClient(object):
                                 "dev_name": state['attributes']
                                 ['friendly_name'],
                                 "state": state['state'],
-                                "best_score": best_score}
+                                "best_score": best_score,
+                                "attributes":state['attributes']}
                         score = fuzz.token_sort_ratio(
                             entity,
                             state['entity_id'].lower())
@@ -88,7 +89,8 @@ class HomeAssistantClient(object):
                                 "dev_name": state['attributes']
                                 ['friendly_name'],
                                 "state": state['state'],
-                                "best_score": best_score}
+                                "best_score": best_score,
+                                "attributes":state['attributes']}
                 except KeyError:
                     pass
             return best_entity
@@ -113,7 +115,7 @@ class HomeAssistantClient(object):
                         else:
                             unit_measur = entity_attrs['unit_of_measurement']
                     except KeyError:
-                        unit_measur = None
+                        unit_measur = ""
                     # IDEA: return the color if available
                     # TODO: change to return the whole attr dictionary =>
                     # free use within handle methods
