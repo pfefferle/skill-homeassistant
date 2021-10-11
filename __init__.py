@@ -345,7 +345,7 @@ class HomeAssistantSkill(FallbackSkill):
         self.log.debug("Brightness Value: %s" % brightness_value)
         self.log.debug("Brightness Percent: %s" % brightness_percentage)
 
-        ha_entity = self._find_entity(entity, ['group', 'light', 'cover'])
+        ha_entity = self._find_entity(entity, ['group', 'light'])
         # Exit if entiti not found or is unavailabe
         if not ha_entity or not self._check_availability(ha_entity):
             return
@@ -492,7 +492,7 @@ class HomeAssistantSkill(FallbackSkill):
         entity = message.data["Entity"]
         self.log.debug("Entity: %s" % entity)
 
-        ha_entity = self._find_entity(entity, ['climate', 'sensor', 'switch'])
+        ha_entity = self._find_entity(entity, ['climate', 'sensor', 'switch', 'cover'])
         # Exit if entiti not found or is unavailabe
         if not ha_entity or not self._check_availability(ha_entity):
             return
