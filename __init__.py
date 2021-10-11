@@ -188,7 +188,7 @@ class HomeAssistantSkill(FallbackSkill):
         self._handle_cover_actions(message)
 
     @intent_handler('cover.stop.intent')
-    def handle_close_cover(self, message):
+    def handle_stop_cover(self, message):
         self.log.debug(message.data)
         self.log.debug("Close stop: "+message.data.get("entity"))
         message.data["Entity"] = message.data.get("entity")
