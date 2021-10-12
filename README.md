@@ -77,6 +77,7 @@ def handle_lighting_intent(self, message):
  * Script intents processing
  * New intent for locking/unlocking lock entities (with added security?)
  * New intent to handle multimedia/kodi
+ * Add feedback to `cover` handling, to check if (for example) the garage door is really closed
 
 ## In Development
- * A lot of small stuffs
+ * A lot of small stuff
