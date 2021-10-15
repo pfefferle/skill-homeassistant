@@ -173,24 +173,18 @@ class HomeAssistantSkill(FallbackSkill):
 
     @intent_handler('cover.open.intent')
     def handle_open_cover(self, message):
-        self.log.debug(message.data)
-        self.log.debug("Open cover: "+message.data.get("entity"))
         message.data["Entity"] = message.data.get("entity")
         message.data["Action"] = "open_cover"
         self._handle_cover_actions(message)
 
     @intent_handler('cover.close.intent')
     def handle_close_cover(self, message):
-        self.log.debug(message.data)
-        self.log.debug("Close cover: "+message.data.get("entity"))
         message.data["Entity"] = message.data.get("entity")
         message.data["Action"] = "close_cover"
         self._handle_cover_actions(message)
 
     @intent_handler('cover.stop.intent')
     def handle_stop_cover(self, message):
-        self.log.debug(message.data)
-        self.log.debug("Stop cover: "+message.data.get("entity"))
         message.data["Entity"] = message.data.get("entity")
         message.data["Action"] = "stop_cover"
         self._handle_cover_actions(message)
@@ -380,8 +374,6 @@ class HomeAssistantSkill(FallbackSkill):
         if not ha_entity or not self._check_availability(ha_entity):
             return
         ha_data = {'entity_id': ha_entity['id']}
-        self.log.debug("Entity: %s" % entity)
-        self.log.debug("Action: %s" % action)
         self.ha.execute_service("cover", action, ha_data)
         return
 
