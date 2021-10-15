@@ -1,2 +1,1 @@
-(What is|Give me|Tell me) (the|) (value|state|status|read out) of thermostat {Entity} (please|).
-(What is|Give me|Tell me) (the|) (value|state|status|read out) of {Entity} (please|).
+(What is|Give me|Tell me) (the|) (temperature|hue|brightness|value|state|status|read out) of {Entity} (please|).
