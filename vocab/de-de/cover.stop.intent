@@ -1,6 +1,6 @@
-(den|die|das|) {entity} stoppen
-kannst du (den|die|das|) {entity} (bitte|) stoppen
-Kannst du (den|die|das|) {entity} stoppen (bitte|)
-ich möchte (gerne|) (den|die|das|) {entity} (jetzt|) (bitte|) stoppen
-stoppe {entity}
-{entity} stop
+(den|die|das|) {Entity} stoppen
+kannst du (den|die|das|) {Entity} (bitte|) stoppen
+Kannst du (den|die|das|) {Entity} stoppen (bitte|)
+ich möchte (gerne|) (den|die|das|) {Entity} (jetzt|) (bitte|) stoppen
+stoppe {Entity}
+{Entity} stop

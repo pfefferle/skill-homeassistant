@@ -1,5 +1,5 @@
-(den|die|das|) {entity} schließen
-kannst du (den|die|das|) {entity} (bitte|) schließen
-Kannst du (den|die|das|) {entity} schließen (bitte|)
-ich möchte (gerne|) (den|die|das|) {entity} (jetzt|) (bitte|) schließen
-schließe {entity}
+(den|die|das|) {Entity} schließen
+kannst du (den|die|das|) {Entity} (bitte|) schließen
+Kannst du (den|die|das|) {Entity} schließen (bitte|)
+ich möchte (gerne|) (den|die|das|) {Entity} (jetzt|) (bitte|) schließen
+schließe (den|die|das|) {Entity}
