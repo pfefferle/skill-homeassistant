@@ -1,4 +1,4 @@
 open (the|) {Entity}
-Can you open {Entity} please?
-I'd like to open {Entity}
-I would like {Entity} opened
+Can you open (the|) {Entity} please?
+I'd like to open (the|) {Entity}
+I would like (the|) {Entity} opened
