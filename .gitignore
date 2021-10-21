@@ -12,3 +12,4 @@
 /test/integrationtests*
 /settings.json
 /skill_developers_testrunner.py
+.DS_Store
