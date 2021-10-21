@@ -1,3 +1,5 @@
+import time
+
 from mycroft.skills.core import FallbackSkill
 from mycroft.util.format import nice_number
 from mycroft import MycroftSkill, intent_handler
@@ -468,10 +470,10 @@ class HomeAssistantSkill(FallbackSkill):
         # self.set_context('Entity', ha_entity['dev_name'])
 
         unit_measurement = self.ha.find_entity_attr(entity)
-        sensor_unit = unit_measurement.get('unit_measure') or ''
+        sensor_unit_raw = sensor_unit = unit_measurement.get('unit_measure') or ''
 
         sensor_name = unit_measurement['name']
-        sensor_state = unit_measurement['state']
+        sensor_state_raw = sensor_state = unit_measurement['state']
         # extract unit for correct pronounciation
         # this is fully optional
         try:
@@ -503,11 +505,14 @@ class HomeAssistantSkill(FallbackSkill):
                 "value": sensor_state,
                 "current_temp": current_temp,
                 "targeted_temp": target_temp})
+
+            self._display_sensor_dialog(sensor_name, attributes['current_temperature'], sensor_state);
         else:
             self.speak_dialog('homeassistant.sensor', data={
                 "dev_name": sensor_name,
                 "value": sensor_state,
                 "unit": sensor_unit})
+            self._display_sensor_dialog(sensor_name, sensor_state_raw + " " + sensor_unit_raw);
         # IDEA: Add some context if the person wants to look the unit up
         # Maybe also change to name
         # if one wants to look up "outside temperature"
@@ -561,6 +566,15 @@ class HomeAssistantSkill(FallbackSkill):
                               "dev_name": climate_attr['name'],
                               "value": temperature,
                               "unit": climate_attr['unit_measure']})
+
+    def _display_sensor_dialog(self, name, value, description = ""):
+        self.gui.clear()
+        self.gui["sensorName"] = name
+        self.gui["sensorValue"] = value
+        self.gui["sensorDescription"] = description
+        self.gui.show_page("sensors.qml")
+        time.sleep(15)
+        self.gui.release()
 
     def handle_fallback(self, message):
         if not self.enable_fallback:
