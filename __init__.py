@@ -392,7 +392,7 @@ class HomeAssistantSkill(FallbackSkill):
         if not ha_entity or not self._check_availability(ha_entity):
             return
         ha_data = {'entity_id': ha_entity['id']}
-        self.ha.execute_service("cover", action, ha_data)
+        self.ha_client.execute_service("cover", action, ha_data)
         return
 
     def _handle_light_adjust(self, message):
