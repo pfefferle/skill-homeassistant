@@ -180,18 +180,21 @@ class HomeAssistantSkill(FallbackSkill):
 
     @intent_handler('cover.open.intent')
     def handle_open_cover(self, message):
+        """Handle open cover intent."""
         message.data["Entity"] = message.data.get("entity")
         message.data["Action"] = "open_cover"
         self._handle_cover_actions(message)
 
     @intent_handler('cover.close.intent')
     def handle_close_cover(self, message):
+        """Handle close cover intent."""
         message.data["Entity"] = message.data.get("entity")
         message.data["Action"] = "close_cover"
         self._handle_cover_actions(message)
 
     @intent_handler('cover.stop.intent')
     def handle_stop_cover(self, message):
+        """Handle stop cover intent."""
         message.data["Entity"] = message.data.get("entity")
         message.data["Action"] = "stop_cover"
         self._handle_cover_actions(message)
@@ -385,10 +388,11 @@ class HomeAssistantSkill(FallbackSkill):
         self.speak_dialog("homeassistant.shopping.list")
 
     def _handle_cover_actions(self, message):
+        """Handler for cover open, close and stop action."""
         entity = message.data["Entity"]
         action = message.data["Action"]
         ha_entity = self._find_entity(entity, ['cover'])
-        # Exit if entiti not found or is unavailabe
+        # Exit if entity not found or is unavailabe
         if not ha_entity or not self._check_availability(ha_entity):
             return
         ha_data = {'entity_id': ha_entity['id']}
