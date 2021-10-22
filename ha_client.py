@@ -1,28 +1,62 @@
-from requests import get, post
-from fuzzywuzzy import fuzz
+"""
+Home Assistant Client
+Handle connection between skill and HA instance trough websocket.
+"""
 import json
-from requests.exceptions import Timeout, RequestException
+import re
 
+from fuzzywuzzy import fuzz
+from requests import get, post
+from requests.exceptions import RequestException, Timeout
 
 __author__ = 'btotharye'
 
 # Timeout time for HA requests
 TIMEOUT = 10
 
+"""Regex for IP address check"""
+ip_regex = r"".join(r'\b(?:https?://)?((?:(?:www\.)?(?:[\da-z\.-]+)\.(?:[a-z]{2,6})|'
+                    r'(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2['
+                    r'0-4][0-9]|[01]?[0-9][0-9]?)|(?:(?:[0-9a-fA-F]{1,4}:){7,7}[0-9a'
+                    r'-fA-F]{1,4}|(?:[0-9a-fA-F]{1,4}:){1,7}:|(?:[0-9a-fA-F]{1,4}:){'
+                    r'1,6}:[0-9a-fA-F]{1,4}|(?:[0-9a-fA-F]{1,4}:){1,5}(?::[0-9a-fA-F'
+                    r']{1,4}){1,2}|(?:[0-9a-fA-F]{1,4}:){1,4}(?::[0-9a-fA-F]{1,4}){1'
+                    r',3}|(?:[0-9a-fA-F]{1,4}:){1,3}(?::[0-9a-fA-F]{1,4}){1,4}|(?:[0'
+                    r'-9a-fA-F]{1,4}:){1,2}(?::[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,'
+                    r'4}:(?:(?::[0-9a-fA-F]{1,4}){1,6})|:(?:(?::[0-9a-fA-F]{1,4}){1,'
+                    r'7}|:)|fe80:(?::[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(?:fff'
+                    r'f(?::0{1,4}){0,1}:){0,1}(?:(?:25[0-5]|(?:2[0-4]|1{0,1}[0-9]){0'
+                    r',1}[0-9])\.){3,3}(?:25[0-5]|(?:2[0-4]|1{0,1}[0-9]){0,1}[0-9])|'
+                    r'(?:[0-9a-fA-F]{1,4}:){1,4}:(?:(?:25[0-5]|(?:2[0-4]|1{0,1}[0-9]'
+                    r'){0,1}[0-9])\.){3,3}(?:25[0-5]|(?:2[0-4]|1{0,1}[0-9]){0,1}[0-9'
+                    r']))))(?::[0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{'
+                    r'2}|655[0-2][0-9]|6553[0-5])?(?:/[\w\.-]*)*/?\b')
 
-class HomeAssistantClient(object):
 
-    def __init__(self, host, token, portnum, ssl=False, verify=True):
-        self.ssl = ssl
-        self.verify = verify
+def check_url(ip):
+    """Function to check if valid url/ip was supplied"""
+    matches = re.search(ip_regex, ip)
+    return matches.group(1)
+
+
+# pylint: disable=R0912, W0105, W0511
+class HomeAssistantClient:
+    """Home Assistant client class"""
+
+    def __init__(self, config):
+        self.ssl = config['ssl'] or False
+        self.verify = config['verify'] or True
+        ip_address = config['ip_address']
+        token = config['token']
+        port_number = config['port_number']
         if self.ssl:
-            self.url = "https://{}".format(host)
+            self.url = f"https://{ip_address}"
         else:
-            self.url = "http://{}".format(host)
-        if portnum:
-            self.url = "{}:{}".format(self.url, portnum)
+            self.url = f"http://{ip_address}"
+        if port_number:
+            self.url = f"{self.url}:{port_number}"
         self.headers = {
-            'Authorization': "Bearer {}".format(token),
+            'Authorization': f"Bearer {token}",
             'Content-Type': 'application/json'
         }
 
@@ -34,15 +68,16 @@ class HomeAssistantClient(object):
           raises HTTPErrors if non-Ok status code)
         """
         if self.ssl:
-            req = get("{}/api/states".format(self.url), headers=self.headers,
+            req = get(f"{self.url}/api/states", headers=self.headers,
                       verify=self.verify, timeout=TIMEOUT)
         else:
-            req = get("{}/api/states".format(self.url), headers=self.headers,
+            req = get(f"{self.url}/api/states", headers=self.headers,
                       timeout=TIMEOUT)
         req.raise_for_status()
         return req.json()
 
     def connected(self):
+        """Get state form HA instance"""
         try:
             self._get_state()
             return True
@@ -78,7 +113,7 @@ class HomeAssistantClient(object):
                                 ['friendly_name'],
                                 "state": state['state'],
                                 "best_score": best_score,
-                                "attributes":state['attributes']}
+                                "attributes": state['attributes']}
                         score = fuzz.token_sort_ratio(
                             entity,
                             state['entity_id'].lower())
@@ -90,10 +125,10 @@ class HomeAssistantClient(object):
                                 ['friendly_name'],
                                 "state": state['state'],
                                 "best_score": best_score,
-                                "attributes":state['attributes']}
+                                "attributes": state['attributes']}
                 except KeyError:
                     pass
-            return best_entity
+        return best_entity
 
     def find_entity_attr(self, entity):
         """checking the entity attributes to be used in the response dialog.
@@ -137,15 +172,15 @@ class HomeAssistantClient(object):
           raises HTTPErrors if non-Ok status code)
         """
         if self.ssl:
-            r = post("{}/api/services/{}/{}".format(self.url, domain, service),
-                     headers=self.headers, data=json.dumps(data),
-                     verify=self.verify, timeout=TIMEOUT)
+            req = post(f"{self.url}/api/services/{domain}/{service}",
+                       headers=self.headers, data=json.dumps(data),
+                       verify=self.verify, timeout=TIMEOUT)
         else:
-            r = post("{}/api/services/{}/{}".format(self.url, domain, service),
-                     headers=self.headers, data=json.dumps(data),
-                     timeout=TIMEOUT)
-        r.raise_for_status()
-        return r
+            req = post(f"{self.url}/api/services/{domain}/{service}",
+                       headers=self.headers, data=json.dumps(data),
+                       timeout=TIMEOUT)
+        req.raise_for_status()
+        return req
 
     def find_component(self, component):
         """Check if a component is loaded at the HA-Server
@@ -155,11 +190,11 @@ class HomeAssistantClient(object):
           raises HTTPErrors if non-Ok status code)
         """
         if self.ssl:
-            req = get("{}/api/components".format(self.url),
+            req = get(f"{self.url}/api/components",
                       headers=self.headers, verify=self.verify,
                       timeout=TIMEOUT)
         else:
-            req = get("%s/api/components" % self.url, headers=self.headers,
+            req = get(f"{self.url}/api/components", headers=self.headers,
                       timeout=TIMEOUT)
 
         req.raise_for_status()
@@ -182,17 +217,17 @@ class HomeAssistantClient(object):
             "text": utterance
         }
         if self.ssl:
-            r = post("{}/api/conversation/process".format(self.url),
-                     headers=self.headers,
-                     data=json.dumps(data),
-                     verify=self.verify,
-                     timeout=TIMEOUT
-                     )
+            req = post(f"{self.url}/api/conversation/process",
+                       headers=self.headers,
+                       data=json.dumps(data),
+                       verify=self.verify,
+                       timeout=TIMEOUT
+                       )
         else:
-            r = post("{}/api/conversation/process".format(self.url),
-                     headers=self.headers,
-                     data=json.dumps(data),
-                     timeout=TIMEOUT
-                     )
-        r.raise_for_status()
-        return r.json()['speech']['plain']
+            req = post(f"{self.url}/api/conversation/process",
+                       headers=self.headers,
+                       data=json.dumps(data),
+                       timeout=TIMEOUT
+                       )
+        req.raise_for_status()
+        return req.json()['speech']['plain']

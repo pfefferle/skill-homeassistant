@@ -78,6 +78,10 @@ def handle_lighting_intent(self, message):
  * New intent for opening/closing cover entities
  * New intent for locking/unlocking lock entities (with added security?)
  * New intent to handle multimedia/kodi
+ * Fix code style to enable as much as possible pylint checks
 
 ## In Development
  * A lot of small stuffs
+
+## Contribution
+Wanna contribute? Please, check development [README.md](./test/README.md)
