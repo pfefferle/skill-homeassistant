@@ -81,3 +81,6 @@ def handle_lighting_intent(self, message):
 
 ## In Development
  * A lot of small stuff
+
+## Contribution
+Wanna contribute? Please, check development [README.md](./test/README.md)

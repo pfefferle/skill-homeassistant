@@ -1,4 +1,0 @@
-{
-  "utterance": "dim bed light by 10 percent",
-  "expected_dialog": "homeassistant.brightness.decreased"
-}

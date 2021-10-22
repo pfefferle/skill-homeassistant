@@ -1,4 +1,0 @@
-{
-  "utterance": "dim brightness of kitchen light by 40 percent",
-  "expected_dialog": "homeassistant.brightness.cantdim.off"
-}

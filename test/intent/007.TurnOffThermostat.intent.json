@@ -1,4 +1,0 @@
-{
-  "utterance": "turn off living room thermostat",
-  "expected_dialog": "homeassistant.device.off"
-}

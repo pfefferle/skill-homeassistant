@@ -1,4 +1,0 @@
-{
-  "utterance": "turn toggle kitchen",
-  "expected_dialog": "homeassistant.device.on"
-}

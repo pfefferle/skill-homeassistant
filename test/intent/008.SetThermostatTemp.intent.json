@@ -1,4 +1,0 @@
-{
-  "utterance": "set the hallway thermostat to 78 degrees",
-  "expected_dialog": "homeassistant.set.thermostat"
-}

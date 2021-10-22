@@ -1,4 +1,0 @@
-{
-  "utterance": "add bread to the shopping list",
-  "expected_dialog": "homeassistant.shopping.list"
-}
