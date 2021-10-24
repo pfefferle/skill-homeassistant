@@ -7,9 +7,14 @@ import Mycroft 1.0 as Mycroft
 
 Mycroft.Delegate {
     id: homeAssistantRoot
-    skillBackgroundSource: Qt.resolvedUrl("wallpapers/home-assistant-default.png")
 
     property bool hasSensorDescription: sessionData.sensorDescription.length > 0 ? true : false
+
+    Image {
+        id: homeAssistantWallpaper
+        anchors.fill: parent
+        source: Qt.resolvedUrl("wallpapers/home-assistant-default.png")
+    }
 
     contentItem: ColumnLayout {
         Label {
