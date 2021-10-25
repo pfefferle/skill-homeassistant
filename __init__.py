@@ -269,7 +269,7 @@ class HomeAssistantSkill(FallbackSkill):
         entity_picture = attributes.get('entity_picture')
 
         self.gui.clear()
-        self.gui.show_image(f"{self.url}{entity_picture}")
+        self.gui.show_image(f"{self.ha_client.url}{entity_picture}")
         time.sleep(15)
         self.gui.release()
 
