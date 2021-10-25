@@ -396,7 +396,22 @@ class HomeAssistantSkill(FallbackSkill):
         if not ha_entity or not self._check_availability(ha_entity):
             return
         ha_data = {'entity_id': ha_entity['id']}
-        self.ha_client.execute_service("cover", action, ha_data)
+
+        response = self.ha_client.execute_service("cover", action, ha_data)
+
+        if (response.status_code != 200):
+            return
+
+        if (action == "open_cover"):
+            self.speak_dialog("homeassistant.sensor.cover.opening",
+                data=ha_entity)
+        elif (action == "close_cover"):
+            self.speak_dialog("homeassistant.sensor.cover.closing",
+                data=ha_entity)
+        elif (action == "stop_cover"):
+            self.speak_dialog("homeassistant.sensor.cover.stopped",
+                data=ha_entity)
+
         return
 
     def _handle_light_adjust(self, message):
