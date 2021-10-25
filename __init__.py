@@ -581,7 +581,7 @@ class HomeAssistantSkill(FallbackSkill):
                 "current_temp": current_temp,
                 "targeted_temp": target_temp})
 
-            self._display_sensor_dialog(sensor_name, attributes['current_temperature'], sensor_state);
+            self._display_sensor_dialog(sensor_name, attributes['current_temperature'], sensor_state)
         elif domain == "cover":
             self.speak_dialog(f'homeassistant.sensor.cover.{sensor_state}', data={
                 "dev_name": sensor_name})
@@ -596,14 +596,14 @@ class HomeAssistantSkill(FallbackSkill):
                 "dev_name": sensor_name,
                 "value": sensor_state})
 
-            self._display_sensor_dialog(sensor_name, sensor_state);
+            self._display_sensor_dialog(sensor_name, sensor_state)
         else:
             self.speak_dialog('homeassistant.sensor', data={
                 "dev_name": sensor_name,
                 "value": sensor_state,
                 "unit": sensor_unit})
 
-            self._display_sensor_dialog(sensor_name, unit_measurement['state']);
+            self._display_sensor_dialog(sensor_name, unit_measurement['state'])
         # IDEA: Add some context if the person wants to look the unit up
         # Maybe also change to name
         # if one wants to look up "outside temperature"
