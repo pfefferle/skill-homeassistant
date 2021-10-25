@@ -404,13 +404,13 @@ class HomeAssistantSkill(FallbackSkill):
         if (response.status_code != 200):
             return
 
-        if (action == "open_cover"):
+        if action == "open_cover":
             self.speak_dialog("homeassistant.sensor.cover.opening",
                 data=ha_entity)
-        elif (action == "close_cover"):
+        elif action == "close_cover":
             self.speak_dialog("homeassistant.sensor.cover.closing",
                 data=ha_entity)
-        elif (action == "stop_cover"):
+        elif action == "stop_cover":
             self.speak_dialog("homeassistant.sensor.cover.stopped",
                 data=ha_entity)
 
@@ -581,12 +581,17 @@ class HomeAssistantSkill(FallbackSkill):
                 "current_temp": current_temp,
                 "targeted_temp": target_temp})
 
-            self._display_sensor_dialog(sensor_name, attributes['current_temperature'], sensor_state)
+            self._display_sensor_dialog(
+                sensor_name,
+                attributes['current_temperature'],
+                sensor_state
+            )
         elif domain == "cover":
             self.speak_dialog(f'homeassistant.sensor.cover.{sensor_state}', data={
                 "dev_name": sensor_name})
         elif domain == "binary_sensor":
-            sensor_states = self.translate_namedvalues(f'homeassistant.binary_sensor.{sensor_state}')
+            sensor_states = self.translate_namedvalues(
+                f'homeassistant.binary_sensor.{sensor_state}')
             sensor_state = sensor_states['default']
 
             if attributes.get('device_class') in sensor_states:
@@ -652,13 +657,20 @@ class HomeAssistantSkill(FallbackSkill):
             'temperature': temperature
         }
         climate_attr = self.ha_client.find_entity_attr(ha_entity['id'])
-        self.ha_client.execute_service("climate", "set_temperature",
-                                       data=climate_data)
-        self.speak_dialog('homeassistant.set.thermostat',
-                          data={
-                              "dev_name": climate_attr['name'],
-                              "value": temperature,
-                              "unit": climate_attr['unit_measure']})
+        self.ha_client.execute_service(
+            "climate",
+            "set_temperature",
+            data=climate_data
+        )
+
+        self.speak_dialog(
+            'homeassistant.set.thermostat',
+            data={
+                "dev_name": climate_attr['name'],
+                "value": temperature,
+                "unit": climate_attr['unit_measure']
+            }
+        )
 
     def _display_sensor_dialog(self, name, value, description = ""):
         self.gui.clear()
