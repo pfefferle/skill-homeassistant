@@ -551,10 +551,10 @@ class HomeAssistantSkill(FallbackSkill):
         # self.set_context('Entity', ha_entity['dev_name'])
 
         unit_measurement = self.ha_client.find_entity_attr(entity)
-        sensor_unit = sensor_unit_raw = unit_measurement.get('unit_measure') or ''
+        sensor_unit = unit_measurement.get('unit_measure') or ''
 
         sensor_name = unit_measurement['name']
-        sensor_state = sensor_state_raw = unit_measurement['state']
+        sensor_state = unit_measurement['state']
         # extract unit for correct pronunciation
         # this is fully optional
 
@@ -595,13 +595,15 @@ class HomeAssistantSkill(FallbackSkill):
             self.speak_dialog('homeassistant.sensor.binary_sensor', data={
                 "dev_name": sensor_name,
                 "value": sensor_state})
+
+            self._display_sensor_dialog(sensor_name, sensor_state);
         else:
             self.speak_dialog('homeassistant.sensor', data={
                 "dev_name": sensor_name,
                 "value": sensor_state,
                 "unit": sensor_unit})
 
-            self._display_sensor_dialog(sensor_name, sensor_state_raw + " " + sensor_unit_raw);
+            self._display_sensor_dialog(sensor_name, unit_measurement['state']);
         # IDEA: Add some context if the person wants to look the unit up
         # Maybe also change to name
         # if one wants to look up "outside temperature"
