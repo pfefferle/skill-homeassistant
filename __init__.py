@@ -1,6 +1,8 @@
 """
 Home Assistant skill
 """  # pylint: disable=C0103
+import time
+
 from mycroft import MycroftSkill, intent_handler
 from mycroft.skills.core import FallbackSkill
 from mycroft.util.format import nice_number
@@ -162,6 +164,13 @@ class HomeAssistantSkill(FallbackSkill):
         return False
 
     # Intent handlers
+    @intent_handler('camera.intent')
+    def handle_camera_intent(self, message):
+        """Handle camera intent."""
+        message.data["Entity"] = message.data.get("entity")
+        message.data["Action"] = "on"
+        self._handle_camera_actions(message)
+
     @intent_handler('turn.on.intent')
     def handle_turn_on_intent(self, message):
         """Handle turn on intent."""
@@ -246,6 +255,23 @@ class HomeAssistantSkill(FallbackSkill):
         self.log.debug("Add %s to the shoping list", message.data.get("entity"))
         message.data["Entity"] = message.data.get("entity")
         self._handle_shopping_list(message)
+
+    def _handle_camera_actions(self, message):
+        """Handler for camera actions."""
+        entity = message.data["Entity"]
+
+        ha_entity = self._find_entity(entity, ['camera'])
+
+        if not ha_entity or not self._check_availability(ha_entity):
+            return
+
+        attributes = ha_entity['attributes']
+        entity_picture = attributes.get('entity_picture')
+
+        self.gui.clear()
+        self.gui.show_image(f"{self.url}{entity_picture}")
+        time.sleep(15)
+        self.gui.release()
 
     def _handle_turn_actions(self, message):
         """Handler for turn on/off and toggle actions."""
