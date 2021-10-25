@@ -1,1 +1,3 @@
-(((Jaký|Jaká) je|(Přečti|Řekni) mi)|) (prosím|) (stav|status|hodnot(u|a)) {Entity} (prosím|).
+((Jak(ý|á) je|(Přečti|Řekni) mi)|) (prosím|) (stav|status|hodnot(u|a)) {Entity} (prosím|).
+((Přečti|Řekni) mi)|) (prosím|) (Jak(ý|á)) je) (teplot(a|u)|barv(a|u)|intenzit(a|u)) {Entity} (prosím|).
+detekoval(|a|o) (|čidlo) {entity} (vlhkost|energi|elektřinu|proud|problém|vibrace|plyn|zvuk)
