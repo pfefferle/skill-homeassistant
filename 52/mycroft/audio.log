@@ -1,0 +1,122 @@
+2021-10-26 19:05:33.069 | INFO     |  5387 | __main__:main:46 | Starting Audio Service
+2021-10-26 19:05:33.070 | INFO     |  5387 | mycroft.messagebus.load_config:load_message_bus_config:33 | Loading message bus configs
+2021-10-26 19:05:33.079 | INFO     |  5387 | mycroft_bus_client.client.client | Connected
+2021-10-26 19:05:33.080 | INFO     |  5387 | mycroft.util.process_utils:start_message_bus_client:155 | Connected to messagebus
+2021-10-26 19:05:33.083 | WARNING  |  5387 | mycroft.tts.tts:clear_cache:428 | This method is deprecated, use TextToSpeechCache.clear
+2021-10-26 19:05:33.338 | ERROR    |  5387 | mycroft.tts.mimic_tts:validate_connection:226 | Mimic executable not found
+2021-10-26 19:05:33.339 | ERROR    |  5387 | mycroft.tts.tts:create:625 | The TTS could not be loaded.
+Traceback (most recent call last):
+  File "/opt/mycroft-core/mycroft/tts/mimic_tts.py", line 221, in validate_connection
+    subprocess.call([mimic_bin, '--version'])
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/subprocess.py", line 339, in call
+    with Popen(*popenargs, **kwargs) as p:
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/subprocess.py", line 800, in __init__
+    restore_signals, start_new_session)
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/subprocess.py", line 1465, in _execute_child
+    executable = os.fsencode(executable)
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/os.py", line 812, in fsencode
+    filename = fspath(filename)  # Does type-checking of `filename`.
+TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/mycroft-core/mycroft/tts/tts.py", line 614, in create
+    tts.validator.validate()
+  File "/opt/mycroft-core/mycroft/tts/tts.py", line 500, in validate
+    self.validate_connection()
+  File "/opt/mycroft-core/mycroft/tts/mimic_tts.py", line 229, in validate_connection
+    from err
+Exception: Mimic was not found. Run install-mimic.sh to install it.
+2021-10-26 19:05:33.356 | ERROR    |  5387 | __main__:on_error:37 | Audio service failed to launch (Exception('Mimic was not found. Run install-mimic.sh to install it.')).
+2021-10-26 19:05:48.209 | ERROR    |  5387 | mycroft.audio.speech:handle_speak:99 | Error in mute_and_speak
+Traceback (most recent call last):
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 95, in handle_speak
+    mute_and_speak(chunk, ident, listen)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 120, in mute_and_speak
+    tts.playback.stop()
+AttributeError: 'NoneType' object has no attribute 'playback'
+2021-10-26 19:06:18.631 | ERROR    |  5387 | mycroft.audio.speech:handle_speak:99 | Error in mute_and_speak
+Traceback (most recent call last):
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 95, in handle_speak
+    mute_and_speak(chunk, ident, listen)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 120, in mute_and_speak
+    tts.playback.stop()
+AttributeError: 'NoneType' object has no attribute 'playback'
+2021-10-26 19:06:18.631 | ERROR    |  5387 | mycroft.audio.speech:handle_speak:99 | Error in mute_and_speak
+Traceback (most recent call last):
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 95, in handle_speak
+    mute_and_speak(chunk, ident, listen)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 120, in mute_and_speak
+    tts.playback.stop()
+AttributeError: 'NoneType' object has no attribute 'playback'
+2021-10-26 19:06:48.977 | ERROR    |  5387 | mycroft.audio.speech:handle_speak:99 | Error in mute_and_speak
+Traceback (most recent call last):
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 95, in handle_speak
+    mute_and_speak(chunk, ident, listen)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 120, in mute_and_speak
+    tts.playback.stop()
+AttributeError: 'NoneType' object has no attribute 'playback'
+2021-10-26 19:06:48.978 | ERROR    |  5387 | mycroft.audio.speech:handle_speak:99 | Error in mute_and_speak
+Traceback (most recent call last):
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 95, in handle_speak
+    mute_and_speak(chunk, ident, listen)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 120, in mute_and_speak
+    tts.playback.stop()
+AttributeError: 'NoneType' object has no attribute 'playback'
+2021-10-26 19:06:48.979 | ERROR    |  5387 | mycroft.audio.speech:handle_speak:99 | Error in mute_and_speak
+Traceback (most recent call last):
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 95, in handle_speak
+    mute_and_speak(chunk, ident, listen)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 120, in mute_and_speak
+    tts.playback.stop()
+AttributeError: 'NoneType' object has no attribute 'playback'
+2021-10-26 19:06:48.979 | ERROR    |  5387 | mycroft.audio.speech:handle_speak:99 | Error in mute_and_speak
+Traceback (most recent call last):
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 95, in handle_speak
+    mute_and_speak(chunk, ident, listen)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 120, in mute_and_speak
+    tts.playback.stop()
+AttributeError: 'NoneType' object has no attribute 'playback'
+2021-10-26 19:06:48.980 | ERROR    |  5387 | mycroft.audio.speech:handle_speak:99 | Error in mute_and_speak
+Traceback (most recent call last):
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 95, in handle_speak
+    mute_and_speak(chunk, ident, listen)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 120, in mute_and_speak
+    tts.playback.stop()
+AttributeError: 'NoneType' object has no attribute 'playback'
+2021-10-26 19:06:48.981 | ERROR    |  5387 | mycroft.audio.speech:handle_speak:99 | Error in mute_and_speak
+Traceback (most recent call last):
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 95, in handle_speak
+    mute_and_speak(chunk, ident, listen)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 120, in mute_and_speak
+    tts.playback.stop()
+AttributeError: 'NoneType' object has no attribute 'playback'
+2021-10-26 19:06:48.982 | ERROR    |  5387 | mycroft.audio.speech:handle_speak:99 | Error in mute_and_speak
+Traceback (most recent call last):
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 95, in handle_speak
+    mute_and_speak(chunk, ident, listen)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 120, in mute_and_speak
+    tts.playback.stop()
+AttributeError: 'NoneType' object has no attribute 'playback'
+2021-10-26 19:06:52.156 | ERROR    |  5387 | mycroft.audio.speech:handle_speak:99 | Error in mute_and_speak
+Traceback (most recent call last):
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 95, in handle_speak
+    mute_and_speak(chunk, ident, listen)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 120, in mute_and_speak
+    tts.playback.stop()
+AttributeError: 'NoneType' object has no attribute 'playback'
+2021-10-26 19:06:53.111 | ERROR    |  5387 | mycroft.audio.speech:handle_speak:99 | Error in mute_and_speak
+Traceback (most recent call last):
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 95, in handle_speak
+    mute_and_speak(chunk, ident, listen)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 120, in mute_and_speak
+    tts.playback.stop()
+AttributeError: 'NoneType' object has no attribute 'playback'
+2021-10-26 19:06:53.112 | ERROR    |  5387 | mycroft.audio.speech:handle_speak:99 | Error in mute_and_speak
+Traceback (most recent call last):
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 95, in handle_speak
+    mute_and_speak(chunk, ident, listen)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 120, in mute_and_speak
+    tts.playback.stop()
+AttributeError: 'NoneType' object has no attribute 'playback'
