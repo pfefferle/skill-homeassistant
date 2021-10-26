@@ -1,1 +1,1 @@
-open homeassistant
+open (homeassistant|hass|hassio|home assistant)
