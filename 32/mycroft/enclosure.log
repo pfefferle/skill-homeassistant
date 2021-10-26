@@ -1,0 +1,28 @@
+2021-10-26 09:56:12.898 | INFO     |  5736 | __main__:create_enclosure:55 | Creating generic enclosure, platform='None'
+2021-10-26 09:56:12.913 | INFO     |  5736 | mycroft.messagebus.load_config:load_message_bus_config:33 | Loading message bus configs
+2021-10-26 09:56:12.931 | INFO     |  5736 | mycroft.client.enclosure.base:create_gui_service:473 | Starting message bus for GUI...
+2021-10-26 09:56:12.939 | INFO     |  5736 | mycroft.client.enclosure.base:create_gui_service:483 | GUI Message bus started!
+2021-10-26 09:56:12.940 | INFO     |  5736 | mycroft.enclosure.display_manager:init_display_manager_bus_connection:152 | Connecting display manager to messagebus
+2021-10-26 09:56:12.940 | INFO     |  5736 | mycroft.messagebus.load_config:load_message_bus_config:33 | Loading message bus configs
+2021-10-26 09:56:12.951 | ERROR    |  5736 | mycroft_bus_client.client.client | === ConnectionRefusedError(111, 'Connection refused') ===
+Traceback (most recent call last):
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/websocket/_app.py", line 254, in run_forever
+    proxy_type=proxy_type)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/websocket/_core.py", line 220, in connect
+    options.pop('socket', None))
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/websocket/_http.py", line 120, in connect
+    sock = _open_socket(addrinfo_list, options.sockopt, options.timeout)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/websocket/_http.py", line 190, in _open_socket
+    raise err
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/websocket/_http.py", line 170, in _open_socket
+    sock.connect(address)
+ConnectionRefusedError: [Errno 111] Connection refused
+2021-10-26 09:56:12.952 | ERROR    |  5736 | mycroft_bus_client.client.client | Exception closing websocket: ConnectionRefusedError(111, 'Connection refused')
+2021-10-26 09:56:12.953 | WARNING  |  5736 | mycroft_bus_client.client.client | Message Bus Client will reconnect in 5 seconds.
+2021-10-26 09:56:13.019 | INFO     |  5736 | mycroft_bus_client.client.client | Connected
+2021-10-26 09:56:13.021 | INFO     |  5736 | mycroft.util.process_utils:start_message_bus_client:155 | Connected to messagebus
+2021-10-26 09:56:13.022 | INFO     |  5736 | __main__:on_ready:26 | Enclosure started!
+2021-10-26 09:56:17.959 | INFO     |  5736 | mycroft_bus_client.client.client | Connected
+2021-10-26 09:58:09.102 | INFO     |  5736 | __main__:on_stopping:30 | Enclosure is shutting down...
+2021-10-26 09:58:10.629 | ERROR    |  5736 | websocket | error from callback <bound method MessageBusClient.on_message of <mycroft.messagebus.client.client.MessageBusClient object at 0x7fa2cf2c2290>>: cannot schedule new futures after shutdown
+2021-10-26 09:58:13.629 | ERROR    |  5736 | websocket | error from callback <bound method MessageBusClient.on_message of <mycroft.messagebus.client.client.MessageBusClient object at 0x7fa2cf2c2290>>: cannot schedule new futures after shutdown
