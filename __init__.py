@@ -268,15 +268,10 @@ class HomeAssistantSkill(FallbackSkill):
         message.data["Entity"] = message.data.get("entity")
         self._handle_shopping_list(message)
 
-    @intent_handler('home.assistant.open.intent')
+    @intent_handler('home.assistant.intent')
     def handle_open_home_assistant_intent(self, message):
         """Handle open Home Assistant intent."""
         self.gui.show_url(self.ha_client.url)
-
-    @intent_handler('home.assistant.close.intent')
-    def handle_close_home_assistant_intent(self, message):
-        """Handle close Home Assistant intent."""
-        self.gui.release()
 
     def _handle_turn_actions(self, message):
         """Handler for turn on/off and toggle actions."""
