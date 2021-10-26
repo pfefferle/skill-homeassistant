@@ -1,0 +1,101 @@
+{
+  "uid" : "8c24f7056475244d",
+  "name" : "set climate temperature",
+  "historyId" : "f92935ac2a0644d248ec72417baefff0",
+  "time" : {
+    "start" : 1635275862783,
+    "stop" : 1635275863595,
+    "duration" : 812
+  },
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ ],
+  "testStage" : {
+    "status" : "passed",
+    "steps" : [ {
+      "name" : "Given an English speaking user",
+      "time" : {
+        "start" : 1635275862784,
+        "stop" : 1635275862784,
+        "duration" : 0
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "When the user says \"change the mycroft climate temperature to 24 degrees\"",
+      "time" : {
+        "start" : 1635275862784,
+        "stop" : 1635275862784,
+        "duration" : 0
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "Then \"homeassistant\" should reply with dialog from \"homeassistant.set.thermostat.dialog\"",
+      "time" : {
+        "start" : 1635275862784,
+        "stop" : 1635275863294,
+        "duration" : 510
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    } ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 3,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : true
+  },
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "severity",
+    "value" : "normal"
+  }, {
+    "name" : "suite",
+    "value" : "behave"
+  }, {
+    "name" : "feature",
+    "value" : "set climate"
+  }, {
+    "name" : "framework",
+    "value" : "behave"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ ],
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "8c24f7056475244d.json",
+  "parameterValues" : [ ]
+}
