@@ -387,7 +387,7 @@ class HomeAssistantSkill(FallbackSkill):
         self.ha_client.execute_service("shopping_list", "add_item", ha_data)
         self.speak_dialog("homeassistant.shopping.list")
 
-    def _handle_on_off_actions(self, message):
+    def _handle_open_close_actions(self, message):
         """Handler for open and close actions."""
         entity = message.data["Entity"]
         action = message.data["Action"]
