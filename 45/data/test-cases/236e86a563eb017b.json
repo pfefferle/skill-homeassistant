@@ -1,0 +1,88 @@
+{
+  "uid" : "236e86a563eb017b",
+  "name" : "test_toggle_lights",
+  "fullName" : "unittests.test_haclient.TestHaClient#test_toggle_lights",
+  "historyId" : "9b3be2368973ff3742dc71ae62f6ef34",
+  "time" : {
+    "start" : 1635264043549,
+    "stop" : 1635264043550,
+    "duration" : 1
+  },
+  "description" : "Test toggle functionality",
+  "descriptionHtml" : "<p>Test toggle functionality</p>\n",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ {
+    "name" : "_UnitTestCase__pytest_class_setup",
+    "time" : {
+      "start" : 1635264043494,
+      "stop" : 1635264043494,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  } ],
+  "afterStages" : [ {
+    "name" : "_UnitTestCase__pytest_class_setup::0",
+    "time" : {
+      "start" : 1635264043551,
+      "stop" : 1635264043551,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  } ],
+  "labels" : [ {
+    "name" : "parentSuite",
+    "value" : "unittests"
+  }, {
+    "name" : "suite",
+    "value" : "test_haclient"
+  }, {
+    "name" : "subSuite",
+    "value" : "TestHaClient"
+  }, {
+    "name" : "host",
+    "value" : "fv-az209-571"
+  }, {
+    "name" : "thread",
+    "value" : "7175-MainThread"
+  }, {
+    "name" : "framework",
+    "value" : "pytest"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "package",
+    "value" : "unittests.test_haclient"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ ],
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "236e86a563eb017b.json",
+  "parameterValues" : [ ]
+}
