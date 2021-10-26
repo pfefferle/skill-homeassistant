@@ -683,9 +683,7 @@ class HomeAssistantSkill(FallbackSkill):
         self.gui["sensorName"] = name
         self.gui["sensorValue"] = value
         self.gui["sensorDescription"] = description
-        self.gui.show_page("sensors.qml")
-        time.sleep(15)
-        self.gui.release()
+        self.gui.show_page("sensors.qml", override_idle=15)
 
     def handle_fallback(self, message):
         """
