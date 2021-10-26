@@ -20,7 +20,6 @@ Mycroft.CardDelegate {
             font.pixelSize: 25
             wrapMode: Text.Wrap
             horizontalAlignment: Text.AlignHCenter
-            font.family: "Noto Sans"
             font.weight: Font.Bold
             text: sessionData.sensorName
         }
@@ -31,7 +30,6 @@ Mycroft.CardDelegate {
             Layout.fillHeight: true
             wrapMode: Text.Wrap
             horizontalAlignment: Text.AlignHCenter
-            font.family: "Noto Sans"
             font.weight: Font.Bold
             text: sessionData.sensorValue
         }
@@ -44,7 +42,6 @@ Mycroft.CardDelegate {
             horizontalAlignment: Text.AlignHCenter
             visible: hasSensorDescription
             enabled: hasSensorDescription
-            font.family: "Noto Sans"
             font.weight: Font.Bold
             text: sessionData.sensorDescription
         }
