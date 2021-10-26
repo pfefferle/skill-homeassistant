@@ -1,8 +1,6 @@
 """
 Home Assistant skill
 """  # pylint: disable=C0103
-import time
-
 from mycroft import MycroftSkill, intent_handler
 from mycroft.skills.core import FallbackSkill
 from mycroft.util.format import nice_number
@@ -290,9 +288,7 @@ class HomeAssistantSkill(FallbackSkill):
         entity_picture = attributes.get('entity_picture')
 
         self.gui.clear()
-        self.gui.show_image(f"{self.ha_client.url}{entity_picture}")
-        time.sleep(15)
-        self.gui.release()
+        self.gui.show_image(f"{self.ha_client.url}{entity_picture}", override_idle=15)
 
     def _handle_turn_actions(self, message):
         """Handler for turn on/off and toggle actions."""
