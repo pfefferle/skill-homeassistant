@@ -1,8 +1,6 @@
 """
 Home Assistant skill
 """  # pylint: disable=C0103
-import time
-
 from mycroft import MycroftSkill, intent_handler
 from mycroft.skills.core import FallbackSkill
 from mycroft.util.format import nice_number
