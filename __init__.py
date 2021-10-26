@@ -450,7 +450,7 @@ class HomeAssistantSkill(FallbackSkill):
             if (response.status_code != 200):
                 return
 
-            self.speak_dialog("homeassistant.device.stopping",
+            self.speak_dialog("homeassistant.device.stopped",
                 data=ha_entity)
 
             return
