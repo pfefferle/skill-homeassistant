@@ -187,6 +187,27 @@ class HomeAssistantSkill(FallbackSkill):
         message.data["Action"] = "off"
         self._handle_turn_actions(message)
 
+    @intent_handler('cover.open.intent')
+    def handle_open_cover(self, message):
+        """Handle open cover intent."""
+        message.data["Entity"] = message.data.get("entity")
+        message.data["Action"] = "open_cover"
+        self._handle_cover_actions(message)
+
+    @intent_handler('cover.close.intent')
+    def handle_close_cover(self, message):
+        """Handle close cover intent."""
+        message.data["Entity"] = message.data.get("entity")
+        message.data["Action"] = "close_cover"
+        self._handle_cover_actions(message)
+
+    @intent_handler('cover.stop.intent')
+    def handle_stop_cover(self, message):
+        """Handle stop cover intent."""
+        message.data["Entity"] = message.data.get("entity")
+        message.data["Action"] = "stop_cover"
+        self._handle_cover_actions(message)
+
     @intent_handler('toggle.intent')
     def handle_toggle_intent(self, message):
         """Handle toggle intent."""
@@ -392,6 +413,33 @@ class HomeAssistantSkill(FallbackSkill):
         self.ha_client.execute_service("shopping_list", "add_item", ha_data)
         self.speak_dialog("homeassistant.shopping.list")
 
+    def _handle_cover_actions(self, message):
+        """Handler for cover open, close and stop action."""
+        entity = message.data["Entity"]
+        action = message.data["Action"]
+        ha_entity = self._find_entity(entity, ['cover'])
+        # Exit if entity not found or is unavailabe
+        if not ha_entity or not self._check_availability(ha_entity):
+            return
+        ha_data = {'entity_id': ha_entity['id']}
+
+        response = self.ha_client.execute_service("cover", action, ha_data)
+
+        if (response.status_code != 200):
+            return
+
+        if (action == "open_cover"):
+            self.speak_dialog("homeassistant.sensor.cover.opening",
+                data=ha_entity)
+        elif (action == "close_cover"):
+            self.speak_dialog("homeassistant.sensor.cover.closing",
+                data=ha_entity)
+        elif (action == "stop_cover"):
+            self.speak_dialog("homeassistant.sensor.cover.stopped",
+                data=ha_entity)
+
+        return
+
     def _handle_light_adjust(self, message):
         """Handler for light brightness increase and decrease action"""
         entity = message.data["Entity"]
@@ -502,8 +550,20 @@ class HomeAssistantSkill(FallbackSkill):
         entity = message.data["Entity"]
         self.log.debug("Entity: %s", entity)
 
-        ha_entity = self._find_entity(entity, ['climate', 'sensor', 'switch'])
-        # Exit if entity not found or is unavailabe
+        ha_entity = self._find_entity(
+            entity,
+            [
+                'light',
+                'climate',
+                'sensor',
+                'switch',
+                'binary_sensor',
+                'cover'
+            ]
+        )
+
+        # Exit if entiti not found or is unavailabe
+
         if not ha_entity or not self._check_availability(ha_entity):
             return
 
@@ -544,6 +604,19 @@ class HomeAssistantSkill(FallbackSkill):
                 "value": sensor_state,
                 "current_temp": current_temp,
                 "targeted_temp": target_temp})
+        elif domain == "cover":
+            self.speak_dialog(f'homeassistant.sensor.cover.{sensor_state}', data={
+                "dev_name": sensor_name})
+        elif domain == "binary_sensor":
+            sensor_states = self.translate_namedvalues(f'homeassistant.binary_sensor.{sensor_state}')
+            sensor_state = sensor_states['default']
+
+            if attributes.get('device_class') in sensor_states:
+                sensor_state = sensor_states[attributes['device_class']]
+
+            self.speak_dialog('homeassistant.sensor.binary_sensor', data={
+                "dev_name": sensor_name,
+                "value": sensor_state})
         else:
             self.speak_dialog('homeassistant.sensor', data={
                 "dev_name": sensor_name,

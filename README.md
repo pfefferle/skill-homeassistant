@@ -4,7 +4,7 @@ Awaken your home - Control Home Assistant
 ## About
 [Home Assistant](https://www.home-assistant.io/) lets you control all your smart devices in a single easy to use interface. This skill uses the open source Home Assistant's APIs to control devices and entities. Control your lights, garage door, thermostats and more using your voice!
 
-Currently the following entity types are supported: `light`, `switch`, `scene`, `climate`, `groups` and `input_boolean`
+Currently the following entity types are supported: `light`, `switch`, `scene`, `climate`, `groups`, `input_boolean`, `binary_sensor` and `cover`
 
 ## Examples
 * "Turn on the office light"
@@ -75,13 +75,12 @@ def handle_lighting_intent(self, message):
 
 ## TODO
  * Script intents processing
- * New intent for opening/closing cover entities
  * New intent for locking/unlocking lock entities (with added security?)
  * New intent to handle multimedia/kodi
- * Fix code style to enable as much as possible pylint checks
+ * Add feedback to `cover` handling, to check if (for example) the garage door is really closed
 
 ## In Development
- * A lot of small stuffs
+ * A lot of small stuff
 
 ## Contribution
 Wanna contribute? Please, check development [README.md](./test/README.md)
