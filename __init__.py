@@ -396,7 +396,6 @@ class HomeAssistantSkill(FallbackSkill):
             if action == "open":
                 self.gui.clear()
                 self.gui.show_url(self.ha_client.url, override_idle=True)
-
                 return
             elif action == "close":
                 self.gui.release()
@@ -424,7 +423,6 @@ class HomeAssistantSkill(FallbackSkill):
             elif (action == "close"):
                 self.speak_dialog("homeassistant.device.closing",
                     data=ha_entity)
-
             return
 
         return
@@ -452,7 +450,6 @@ class HomeAssistantSkill(FallbackSkill):
 
             self.speak_dialog("homeassistant.device.stopped",
                 data=ha_entity)
-
             return
 
         return
