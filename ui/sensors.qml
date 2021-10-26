@@ -5,8 +5,10 @@ import org.kde.kirigami 2.4 as Kirigami
 
 import Mycroft 1.0 as Mycroft
 
-Mycroft.Delegate {
+Mycroft.CardDelegate {
     id: homeAssistantRoot
+    skillBackgroundColorOverlay: "transparent"
+    cardBackgroundOverlayColor: "transparent"
     skillBackgroundSource: Qt.resolvedUrl("wallpapers/home-assistant-default.png")
 
     property bool hasSensorDescription: sessionData.sensorDescription.length > 0 ? true : false
