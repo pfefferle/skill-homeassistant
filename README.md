@@ -11,6 +11,11 @@ Currently the following entity types are supported: `light`, `switch`, `scene`, 
 * "Turn off bedroom lights"
 * "Turn on on the AC"
 * "Read bedroom temperature"
+* "Open the living room blinds"
+* "Close the garage door"
+* "Open Home Assistant"
+* "What is the state of power plug bedroom"
+* "Has water sensor detected moisture"
 
 ## Credits
 @BongoEADGC6
