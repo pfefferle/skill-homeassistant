@@ -396,10 +396,9 @@ class HomeAssistantSkill(FallbackSkill):
             if action == "open":
                 self.gui.clear()
                 self.gui.show_url(self.ha_client.url, override_idle=True)
-                return
             elif action == "close":
                 self.gui.release()
-                return
+            return
 
         ha_entity = self._find_entity(entity, ['cover'])
         # Exit if entity not found or is unavailabe
@@ -414,13 +413,13 @@ class HomeAssistantSkill(FallbackSkill):
         if domain == "cover":
             response = self.ha_client.execute_service("cover", f"{action}_cover", ha_data)
 
-            if (response.status_code != 200):
+            if response.status_code != 200:
                 return
 
-            if (action == "open"):
+            if action == "open":
                 self.speak_dialog("homeassistant.device.opening",
                                   data=ha_entity)
-            elif (action == "close"):
+            elif action == "close":
                 self.speak_dialog("homeassistant.device.closing",
                                   data=ha_entity)
             return
@@ -444,7 +443,7 @@ class HomeAssistantSkill(FallbackSkill):
         if domain == "cover":
             response = self.ha_client.execute_service("cover", "stop_cover", ha_data)
 
-            if (response.status_code != 200):
+            if response.status_code != 200:
                 return
 
             self.speak_dialog("homeassistant.device.stopped",
@@ -621,7 +620,8 @@ class HomeAssistantSkill(FallbackSkill):
             self.speak_dialog(f'homeassistant.device.{sensor_state}', data={
                 "dev_name": sensor_name})
         elif domain == "binary_sensor":
-            sensor_states = self.translate_namedvalues(f'homeassistant.binary_sensor.{sensor_state}')
+            sensor_states = self.translate_namedvalues(
+                f'homeassistant.binary_sensor.{sensor_state}')
             sensor_state = sensor_states['default']
 
             if attributes.get('device_class') in sensor_states:
