@@ -419,10 +419,10 @@ class HomeAssistantSkill(FallbackSkill):
 
             if (action == "open"):
                 self.speak_dialog("homeassistant.device.opening",
-                    data=ha_entity)
+                                  data=ha_entity)
             elif (action == "close"):
                 self.speak_dialog("homeassistant.device.closing",
-                    data=ha_entity)
+                                  data=ha_entity)
             return
 
         return
@@ -430,7 +430,6 @@ class HomeAssistantSkill(FallbackSkill):
     def _handle_stop_actions(self, message):
         """Handler for stop actions."""
         entity = message.data["Entity"]
-        action = message.data["Action"]
 
         ha_entity = self._find_entity(entity, ['cover'])
         # Exit if entity not found or is unavailabe
@@ -449,7 +448,7 @@ class HomeAssistantSkill(FallbackSkill):
                 return
 
             self.speak_dialog("homeassistant.device.stopped",
-                data=ha_entity)
+                              data=ha_entity)
             return
 
         return
