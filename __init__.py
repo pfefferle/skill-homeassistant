@@ -394,9 +394,11 @@ class HomeAssistantSkill(FallbackSkill):
 
         if self.voc_match(entity, "HomeAssistant"):
             if action == "open":
+                self.acknowledge()
                 self.gui.clear()
                 self.gui.show_url(self.ha_client.url, override_idle=True)
             elif action == "close":
+                self.acknowledge()
                 self.gui.release()
             return
 
