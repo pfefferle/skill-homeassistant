@@ -403,21 +403,17 @@ class HomeAssistantSkill(FallbackSkill):
             return
 
         if action == "open_cover":
-            self.speak_dialog(
-                "homeassistant.sensor.cover.opening",
-                data=ha_entity
-            )
+            self.speak_dialog("homeassistant.sensor.cover.opening",
+                              data=ha_entity
+                              )
         elif action == "close_cover":
-            self.speak_dialog(
-                "homeassistant.sensor.cover.closing",
-                data=ha_entity
-            )
+            self.speak_dialog("homeassistant.sensor.cover.closing",
+                              data=ha_entity
+                              )
         elif action == "stop_cover":
-            self.speak_dialog(
-                "homeassistant.sensor.cover.stopped",
-                data=ha_entity
-            )
-
+            self.speak_dialog("homeassistant.sensor.cover.stopped",
+                              data=ha_entity
+                              )
         return
 
     def _handle_light_adjust(self, message):
