@@ -279,6 +279,10 @@ class HomeAssistantSkill(FallbackSkill):
         """Handler for camera actions."""
         entity = message.data["Entity"]
 
+        if not self.gui.connected:
+            self.speak_dialog('homeassistant.error.no_gui')
+            return
+
         ha_entity = self._find_entity(entity, ['camera'])
 
         if not ha_entity or not self._check_availability(ha_entity):
