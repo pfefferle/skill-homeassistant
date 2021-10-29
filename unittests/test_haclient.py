@@ -181,24 +181,30 @@ class TestHaClient(TestCase):
                     asert = True
                 self.assertTrue(asert)
 
-    def test_check_ip_with_ip_four(self):
+
+class TestUrlChecker(TestCase):
+    """Base set of tests for checking url"""
+
+    def test_ip_four(self):
         """Test regex parsing user inputted url as ip v4 address"""
         test_case = ['http://192.168.1.1/test/',
                      'https://192.168.1.1/test/',
                      '192.168.1.1:8123',
-                     '192.168.1.1'
+                     '192.168.1.1',
+                     'this is my ip address:192.168.1.1'
                      ]
 
         for address in test_case:
             parsed = check_url(address)
             self.assertEqual(parsed, '192.168.1.1')
 
-    def test_check_ip_with_ip_six(self):
-        """Test regex parsing user inputted url as ip v4 address"""
+    def test_ip_six_full(self):
+        """Test regex parsing user inputted url as ip v6 address"""
         test_case = ['http://2001:0db8:0:85a3:0:0:ac1f:8001/test',
                      'https://2001:0db8:0:85a3:0:0:ac1f:8001/test/',
                      '2001:0db8:0:85a3:0:0:ac1f:8001:8123',
-                     '2001:0db8:0:85a3:0:0:ac1f:8001'
+                     '2001:0db8:0:85a3:0:0:ac1f:8001',
+                     'this is my ip address:2001:0db8:0:85a3:0:0:ac1f:8001'
                      ]
 
         for address in test_case:
@@ -215,6 +221,79 @@ class TestHaClient(TestCase):
         for address in test_case:
             parsed = check_url(address)
             self.assertEqual(parsed, 'mycroft.local')
+
+    def test_ip_six_all(self):
+        """Test regex parsing user inputted url as ip v6 address"""
+        test_case = ["2001:0db8:0000:0000:0000:0000:1428:57ab",
+                     "2001:0db8:0000:0000:0000::1428:57ab",
+                     "2001:0db8:0:0:0:0:1428:57ab",
+                     "2001:0db8:0:0::1428:57ab",
+                     "2001:0db8::1428:57ab",
+                     "2001:db8::1428:57ab",
+                     "1:2:3:4:5:6:7:8",
+                     "1::",
+                     "1:2:3:4:5:6:7::",
+                     "1::8",
+                     "1:2:3:4:5:6::8",
+                     "1::7:8",
+                     "1:2:3:4:5::7:8",
+                     "1:2:3:4:5::8",
+                     "1::6:7:8",
+                     "1:2:3:4::6:7:8",
+                     "1:2:3:4::8",
+                     "1::5:6:7:8",
+                     "1:2:3::5:6:7:8",
+                     "1:2:3::8",
+                     "1::4:5:6:7:8",
+                     "1:2::4:5:6:7:8",
+                     "1:2::8",
+                     "1::3:4:5:6:7:8",
+                     "1::3:4:5:6:7:8",
+                     "1::8",
+                     "::2:3:4:5:6:7:8",
+                     "::2:3:4:5:6:7:8",
+                     "::8",
+                     "::255.255.255.255",
+                     "::ffff:255.255.255.255",
+                     "::ffff:0:255.255.255.255",
+                     "2001:db8:3:4::192.0.2.33",
+                     "64:ff9b::192.0.2.33",
+                     # 'fe80::7:8%eth0', # Does not work with
+                     # 'fe80::7:8%1'     # Python 3.7 tested with 3.9
+                     ]
+
+        for address in test_case:
+            test_addr = f"http://{address}/test.jpg"
+            matches = check_url(test_addr)
+
+            self.assertEqual(matches, address)
+
+    def test_ipv6_with_port(self):
+        """Test regex parsing user inputted as ipv6 with port"""
+        test_case = ["2001:db8::1428:57ab",
+                     "1:2:3:4:5:6:7:8",
+                     "1::",
+                     ]
+
+        for address in test_case:
+            test_addr = f"http://[{address}]:8123/test.jpg"
+            matches = check_url(test_addr)
+
+        self.assertEqual(matches, address)
+
+    def test_wrong_entry(self):
+        """Test regex parsing user inputted url that should fail"""
+        test_case = ['',
+                     'hi, jack',
+                     'None',
+                     '192.1.000.1',
+                     '1.256.0.1',
+                     ]
+
+        for address in test_case:
+            matches = check_url(address)
+
+        self.assertEqual(matches, None)
 
 
 if __name__ == '__main__':

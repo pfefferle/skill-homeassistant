@@ -2,6 +2,7 @@
 Home Assistant Client
 Handle connection between skill and HA instance trough websocket.
 """
+import ipaddress
 import json
 import re
 
@@ -15,7 +16,7 @@ __author__ = 'btotharye'
 TIMEOUT = 10
 
 """Regex for IP address check"""
-ip_regex = r"".join(r'\b(?:https?://)?((?:(?:www\.)?(?:[\da-z\.-]+)\.(?:[a-z]{2,6})|'
+IP_REGEX = r"".join(r'\b(?:https?://)?((?:(?:www\.)?(?:[\da-z\.-]+)\.(?:[a-z]{2,6})|'
                     r'(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2['
                     r'0-4][0-9]|[01]?[0-9][0-9]?)|(?:(?:[0-9a-fA-F]{1,4}:){7,7}[0-9a'
                     r'-fA-F]{1,4}|(?:[0-9a-fA-F]{1,4}:){1,7}:|(?:[0-9a-fA-F]{1,4}:){'
@@ -32,11 +33,42 @@ ip_regex = r"".join(r'\b(?:https?://)?((?:(?:www\.)?(?:[\da-z\.-]+)\.(?:[a-z]{2,
                     r']))))(?::[0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{'
                     r'2}|655[0-2][0-9]|6553[0-5])?(?:/[\w\.-]*)*/?\b')
 
+IPV6_REGEX = r"".join(r'((?:[0-9a-fA-F]{1,4}:){1,4}:(?:(?:25[0-5]|(?:2[0-4]|1{0,1}[0'
+                      r'-9]){0,1}[0-9])\.){3,3}(?:25[0-5]|(?:2[0-4]|1{0,1}[0-9]){0,1'
+                      r'}[0-9])|(?:fe80:(?::[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,})|'
+                      r'::(?:ffff(?::0{1,4}){0,1}:){0,1}(?:(?:25[0-5]|(2[0-4]|1{0,1}'
+                      r'[0-9]){0,1}[0-9])\.){3,3}(?:25[0-5]|(?:2[0-4]|1{0,1}[0-9]){0'
+                      r',1}[0-9])|(?:(?:[0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4})|(?:'
+                      r'[0-9a-fA-F]{1,4}:){1,7}(?:(?::[0-9a-fA-F]{1,4}){1,7}|:)|(?::'
+                      r':(?:[0-9a-fA-F]{1,4}:){,6}(?:[0-9a-fA-F]{1,4})))')
 
-def check_url(ip):
-    """Function to check if valid url/ip was supplied"""
-    matches = re.search(ip_regex, ip)
-    return matches.group(1)
+
+def check_url(ip_address):
+    """Function to check if valid url/ip was supplied
+
+    First regex check for IPv6.
+    If nothing found, second regex try to find IPv4 and domains names.
+    """
+    valid = False
+    matches = re.findall(IPV6_REGEX, ip_address)
+    if matches:
+        largest = max(matches, key=len)[0]
+
+        if ':' in largest:
+            try:
+                checked_ip = ipaddress.ip_address(largest)
+                if checked_ip:
+                    valid = True
+            except ValueError:
+                return None
+
+            if largest and valid:
+                return largest
+
+    matches = re.search(IP_REGEX, ip_address)
+    if matches:
+        return matches.group(1)
+    return None
 
 
 # pylint: disable=R0912, W0105, W0511
