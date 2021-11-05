@@ -427,16 +427,16 @@ class HomeAssistantSkill(FallbackSkill):
 
         response = self.ha_client.execute_service("cover", action, ha_data)
 
-        if (response.status_code != 200):
+        if response.status_code != 200:
             return
 
-        if (action == "open_cover"):
+        if action == "open_cover":
             self.speak_dialog("homeassistant.sensor.cover.opening",
                 data=ha_entity)
-        elif (action == "close_cover"):
+        elif action == "close_cover":
             self.speak_dialog("homeassistant.sensor.cover.closing",
                 data=ha_entity)
-        elif (action == "stop_cover"):
+        elif action == "stop_cover":
             self.speak_dialog("homeassistant.sensor.cover.stopped",
                 data=ha_entity)
 
@@ -610,7 +610,8 @@ class HomeAssistantSkill(FallbackSkill):
             self.speak_dialog(f'homeassistant.sensor.cover.{sensor_state}', data={
                 "dev_name": sensor_name})
         elif domain == "binary_sensor":
-            sensor_states = self.translate_namedvalues(f'homeassistant.binary_sensor.{sensor_state}')
+            sensor_states = self.translate_namedvalues(
+                f'homeassistant.binary_sensor.{sensor_state}')
             sensor_state = sensor_states['default']
 
             if attributes.get('device_class') in sensor_states:
