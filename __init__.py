@@ -590,6 +590,10 @@ class HomeAssistantSkill(FallbackSkill):
             self.speak_dialog(f'homeassistant.sensor.cover.{sensor_state}', data={
                 "dev_name": sensor_name})
 
+            sensor_states = self.translate_namedvalues(
+                'homeassistant.sensor.cover.state')
+            sensor_state = sensor_states[sensor_state]
+
             self._display_sensor_dialog(sensor_name, sensor_state)
         elif domain == "binary_sensor":
             sensor_states = self.translate_namedvalues(
