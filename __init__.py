@@ -393,6 +393,10 @@ class HomeAssistantSkill(FallbackSkill):
         action = message.data["Action"]
 
         if self.voc_match(entity, "HomeAssistant"):
+            if not self.gui.connected:
+                self.speak_dialog('homeassistant.error.no_gui')
+                return
+
             if action == "open":
                 self.acknowledge()
                 self.gui.clear()
