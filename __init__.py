@@ -31,7 +31,7 @@ class HomeAssistantSkill(FallbackSkill):
     def _setup(self, force=False):
         if self.settings is not None and (force or self.ha_client is None):
             # Check if user filled IP, port and Token in configuration
-            ip_address = check_url(self.settings.get('host'))
+            ip_address = check_url(str(self.settings.get('host')))
             token = self.settings.get('token')
 
             """Inform user if ip/url or token not or incorrectly filed"""
@@ -439,7 +439,6 @@ class HomeAssistantSkill(FallbackSkill):
         elif action == "stop_cover":
             self.speak_dialog("homeassistant.sensor.cover.stopped",
                               data=ha_entity)
-
         return
 
     def _handle_light_adjust(self, message):
