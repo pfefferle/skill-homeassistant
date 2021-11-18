@@ -113,7 +113,7 @@ class HomeAssistantSkill(FallbackSkill):
         ha_entity = self._handle_client_exception(self.ha_client.find_entity,
                                                   entity, domains)
         if ha_entity is None:
-            self.speak_dialog('homeassistant.device.unknown', data={
+            self.speak_dialog('homeassistant.error.device.unknown', data={
                               "dev_name": entity})
         return ha_entity
 
@@ -125,7 +125,7 @@ class HomeAssistantSkill(FallbackSkill):
         if ha_entity['state'] == 'unavailable':
             """Check if state is unavailable, if yes, inform user about it."""
 
-            self.speak_dialog('homeassistant.device.unavailable', data={
+            self.speak_dialog('homeassistant.error.device.unavailable', data={
                             "dev_name": ha_entity['dev_name']})
             """Return result to underlining function."""
             return False
@@ -178,26 +178,26 @@ class HomeAssistantSkill(FallbackSkill):
         message.data["Action"] = "off"
         self._handle_turn_actions(message)
 
-    @intent_handler('cover.open.intent')
-    def handle_open_cover(self, message):
-        """Handle open cover intent."""
+    @intent_handler('open.intent')
+    def handle_open(self, message):
+        """Handle open intent."""
         message.data["Entity"] = message.data.get("entity")
-        message.data["Action"] = "open_cover"
-        self._handle_cover_actions(message)
+        message.data["Action"] = "open"
+        self._handle_open_close_actions(message)
 
-    @intent_handler('cover.close.intent')
-    def handle_close_cover(self, message):
-        """Handle close cover intent."""
+    @intent_handler('close.intent')
+    def handle_close(self, message):
+        """Handle close intent."""
         message.data["Entity"] = message.data.get("entity")
-        message.data["Action"] = "close_cover"
-        self._handle_cover_actions(message)
+        message.data["Action"] = "close"
+        self._handle_open_close_actions(message)
 
-    @intent_handler('cover.stop.intent')
-    def handle_stop_cover(self, message):
-        """Handle stop cover intent."""
+    @intent_handler('stop.intent')
+    def handle_stop(self, message):
+        """Handle stop intent."""
         message.data["Entity"] = message.data.get("entity")
-        message.data["Action"] = "stop_cover"
-        self._handle_cover_actions(message)
+        message.data["Action"] = "stop"
+        self._handle_stop_actions(message)
 
     @intent_handler('toggle.intent')
     def handle_toggle_intent(self, message):
@@ -387,33 +387,75 @@ class HomeAssistantSkill(FallbackSkill):
         self.ha_client.execute_service("shopping_list", "add_item", ha_data)
         self.speak_dialog("homeassistant.shopping.list")
 
-    def _handle_cover_actions(self, message):
-        """Handler for cover open, close and stop action."""
+    def _handle_open_close_actions(self, message):
+        """Handler for open and close actions."""
         entity = message.data["Entity"]
         action = message.data["Action"]
+
+        if self.voc_match(entity, "HomeAssistant"):
+            if not self.gui.connected:
+                self.speak_dialog('homeassistant.error.no_gui')
+                return
+
+            if action == "open":
+                self.acknowledge()
+                self.gui.clear()
+                self.gui.show_url(self.ha_client.url, override_idle=True)
+            elif action == "close":
+                self.acknowledge()
+                self.gui.release()
+            return
+
         ha_entity = self._find_entity(entity, ['cover'])
         # Exit if entity not found or is unavailabe
         if not ha_entity or not self._check_availability(ha_entity):
             return
+
+        entity = ha_entity['id']
+        domain = entity.split(".")[0]
+
         ha_data = {'entity_id': ha_entity['id']}
 
-        response = self.ha_client.execute_service("cover", action, ha_data)
+        if domain == "cover":
+            response = self.ha_client.execute_service("cover", f"{action}_cover", ha_data)
 
-        if response.status_code != 200:
+            if response.status_code != 200:
+                return
+
+            if action == "open":
+                self.speak_dialog("homeassistant.device.opening",
+                                  data=ha_entity)
+            elif action == "close":
+                self.speak_dialog("homeassistant.device.closing",
+                                  data=ha_entity)
             return
 
-        if action == "open_cover":
-            self.speak_dialog("homeassistant.sensor.cover.opening",
-                              data=ha_entity
-                              )
-        elif action == "close_cover":
-            self.speak_dialog("homeassistant.sensor.cover.closing",
-                              data=ha_entity
-                              )
-        elif action == "stop_cover":
-            self.speak_dialog("homeassistant.sensor.cover.stopped",
-                              data=ha_entity
-                              )
+        return
+
+    def _handle_stop_actions(self, message):
+        """Handler for stop actions."""
+        entity = message.data["Entity"]
+
+        ha_entity = self._find_entity(entity, ['cover'])
+        # Exit if entity not found or is unavailabe
+        if not ha_entity or not self._check_availability(ha_entity):
+            return
+
+        entity = ha_entity['id']
+        domain = entity.split(".")[0]
+
+        ha_data = {'entity_id': ha_entity['id']}
+
+        if domain == "cover":
+            response = self.ha_client.execute_service("cover", "stop_cover", ha_data)
+
+            if response.status_code != 200:
+                return
+
+            self.speak_dialog("homeassistant.device.stopped",
+                              data=ha_entity)
+            return
+
         return
 
     def _handle_light_adjust(self, message):
@@ -581,10 +623,11 @@ class HomeAssistantSkill(FallbackSkill):
                 "current_temp": current_temp,
                 "targeted_temp": target_temp})
         elif domain == "cover":
-            self.speak_dialog(f'homeassistant.sensor.cover.{sensor_state}', data={
+            self.speak_dialog(f'homeassistant.device.{sensor_state}', data={
                 "dev_name": sensor_name})
         elif domain == "binary_sensor":
-            sensor_states = self.translate_namedvalues(f'homeassistant.binary_sensor.{sensor_state}')
+            sensor_states = self.translate_namedvalues(
+                f'homeassistant.binary_sensor.{sensor_state}')
             sensor_state = sensor_states['default']
 
             if attributes.get('device_class') in sensor_states:
