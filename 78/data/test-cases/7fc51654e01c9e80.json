@@ -1,0 +1,88 @@
+{
+  "uid" : "7fc51654e01c9e80",
+  "name" : "test_check_ip_with_hostname",
+  "fullName" : "unittests.test_haclient.TestUrlChecker#test_check_ip_with_hostname",
+  "historyId" : "2c7d0610c9a02c48a47e822e98f42cde",
+  "time" : {
+    "start" : 1637306840973,
+    "stop" : 1637306840977,
+    "duration" : 4
+  },
+  "description" : "Test regex parsing user inputted url as hostname",
+  "descriptionHtml" : "<p>Test regex parsing user inputted url as hostname</p>\n",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ {
+    "name" : "_UnitTestCase__pytest_class_setup",
+    "time" : {
+      "start" : 1637306840973,
+      "stop" : 1637306840973,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  } ],
+  "afterStages" : [ {
+    "name" : "_UnitTestCase__pytest_class_setup::0",
+    "time" : {
+      "start" : 1637306840987,
+      "stop" : 1637306840987,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  } ],
+  "labels" : [ {
+    "name" : "parentSuite",
+    "value" : "unittests"
+  }, {
+    "name" : "suite",
+    "value" : "test_haclient"
+  }, {
+    "name" : "subSuite",
+    "value" : "TestUrlChecker"
+  }, {
+    "name" : "host",
+    "value" : "fv-az177-968"
+  }, {
+    "name" : "thread",
+    "value" : "6931-MainThread"
+  }, {
+    "name" : "framework",
+    "value" : "pytest"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "package",
+    "value" : "unittests.test_haclient"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ ],
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "7fc51654e01c9e80.json",
+  "parameterValues" : [ ]
+}
