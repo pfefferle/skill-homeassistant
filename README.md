@@ -11,6 +11,11 @@ Currently the following entity types are supported: `light`, `switch`, `scene`, 
 * "Turn off bedroom lights"
 * "Turn on on the AC"
 * "Read bedroom temperature"
+* "Open the living room blinds"
+* "Close the garage door"
+* "Open Home Assistant"
+* "What is the state of power plug bedroom"
+* "Has water sensor detected moisture"
 
 ## Credits
 @BongoEADGC6
@@ -68,7 +73,7 @@ def handle_lighting_intent(self, message):
         ha_entity = self.ha.find_entity(entity, ['group','light', 'switch', 'scene', 'input_boolean'])
         if ha_entity is None:
             #self.speak("Sorry, I can't find the Home Assistant entity %s" % entity)
-            self.speak_dialog('homeassistant.device.unknown', data={"dev_name": ha_entity['dev_name']})
+            self.speak_dialog('homeassistant.error.device.unknown', data={"dev_name": ha_entity['dev_name']})
             return
         ha_data = {'entity_id': ha_entity['id']}
 ```
