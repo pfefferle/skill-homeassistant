@@ -1,2 +1,0 @@
-100
-{'id': 'light.unittest_light', 'dev_name': 'unittest light', 'state': 'on', 'best_score': 100, 'attributes': {'supported_color_modes': ['brightness'], 'color_mode': 'brightness', 'brightness': 80, 'friendly_name': 'unittest light', 'supported_features': 1}}
