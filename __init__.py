@@ -162,12 +162,11 @@ class HomeAssistantSkill(FallbackSkill):
         return False
 
     # Intent handlers
-    @intent_handler('camera.intent')
+    @intent_handler('show.camera.image.intent')
     def handle_camera_intent(self, message):
-        """Handle camera intent."""
+        """Handle show camera image intent."""
         message.data["Entity"] = message.data.get("entity")
-        message.data["Action"] = "on"
-        self._handle_camera_actions(message)
+        self._handle_camera_image_actions(message)
 
     @intent_handler('turn.on.intent')
     def handle_turn_on_intent(self, message):
@@ -275,8 +274,8 @@ class HomeAssistantSkill(FallbackSkill):
         message.data["Entity"] = message.data.get("entity")
         self._handle_shopping_list(message)
 
-    def _handle_camera_actions(self, message):
-        """Handler for camera actions."""
+    def _handle_camera_image_actions(self, message):
+        """Handler for camera image actions."""
         entity = message.data["Entity"]
 
         if not self.gui.connected:
