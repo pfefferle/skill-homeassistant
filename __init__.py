@@ -650,9 +650,21 @@ class HomeAssistantSkill(FallbackSkill):
                 "value": sensor_state,
                 "current_temp": current_temp,
                 "targeted_temp": target_temp})
+
+            self._display_sensor_dialog(
+                sensor_name,
+                attributes['current_temperature'],
+                sensor_state
+            )
         elif domain == "cover":
             self.speak_dialog(f'homeassistant.device.{sensor_state}', data={
                 "dev_name": sensor_name})
+
+            sensor_states = self.translate_namedvalues(
+                'homeassistant.sensor.cover.state')
+            sensor_state = sensor_states[sensor_state]
+
+            self._display_sensor_dialog(sensor_name, sensor_state)
         elif domain == "binary_sensor":
             sensor_states = self.translate_namedvalues(
                 f'homeassistant.binary_sensor.{sensor_state}')
@@ -664,11 +676,15 @@ class HomeAssistantSkill(FallbackSkill):
             self.speak_dialog('homeassistant.sensor.binary_sensor', data={
                 "dev_name": sensor_name,
                 "value": sensor_state})
+
+            self._display_sensor_dialog(sensor_name, sensor_state)
         else:
             self.speak_dialog('homeassistant.sensor', data={
                 "dev_name": sensor_name,
                 "value": sensor_state,
                 "unit": sensor_unit})
+
+            self._display_sensor_dialog(sensor_name, unit_measurement['state'])
         # IDEA: Add some context if the person wants to look the unit up
         # Maybe also change to name
         # if one wants to look up "outside temperature"
@@ -717,13 +733,27 @@ class HomeAssistantSkill(FallbackSkill):
             'temperature': temperature
         }
         climate_attr = self.ha_client.find_entity_attr(ha_entity['id'])
-        self.ha_client.execute_service("climate", "set_temperature",
-                                       data=climate_data)
-        self.speak_dialog('homeassistant.set.thermostat',
-                          data={
-                              "dev_name": climate_attr['name'],
-                              "value": temperature,
-                              "unit": climate_attr['unit_measure']})
+        self.ha_client.execute_service(
+            "climate",
+            "set_temperature",
+            data=climate_data
+        )
+
+        self.speak_dialog(
+            'homeassistant.set.thermostat',
+            data={
+                "dev_name": climate_attr['name'],
+                "value": temperature,
+                "unit": climate_attr['unit_measure']
+            }
+        )
+
+    def _display_sensor_dialog(self, name, value, description=""):
+        self.gui.clear()
+        self.gui["sensorName"] = name
+        self.gui["sensorValue"] = value
+        self.gui["sensorDescription"] = description
+        self.gui.show_page("sensors.qml", override_idle=15)
 
     def handle_fallback(self, message):
         """
