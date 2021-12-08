@@ -112,4 +112,10 @@ climate:
 # 14_add_item_shopping_list.feature
 shopping_list:
 
+camera:
+  # 15_show_camera_image.feature
+  - platform: generic
+    name: "Mycroft camera"
+    entity_picture: /image.jpg
+
 automation: !include automations.yaml
