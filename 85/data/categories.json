@@ -1,0 +1,26 @@
+{
+  "uid" : "4b4757e66a1912dae1a509f688f20b0f",
+  "children" : [ {
+    "name" : "Test defects",
+    "children" : [ {
+      "name" : "\nYou can implement step definitions for undefined steps with these snippets:\n\n@when(u'the user says  \"show me the latest picture of Albert Einstein\"')\ndef step_impl(context):\n    raise NotImplementedError(u'STEP: When the user says  \"show me the latest picture of Albert Einstein\"')\n\n",
+      "children" : [ {
+        "name" : "show image of missing entity",
+        "uid" : "2f3f5666bafdd495",
+        "parentUid" : "768d7ad219d16a72fdb2ebc9b9368fe4",
+        "status" : "broken",
+        "time" : {
+          "start" : 1639121429270,
+          "stop" : 1639121429874,
+          "duration" : 604
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "768d7ad219d16a72fdb2ebc9b9368fe4"
+    } ],
+    "uid" : "bdbf199525818fae7a8651db9eafe741"
+  } ],
+  "name" : "categories"
+}

@@ -1,0 +1,155 @@
+{
+  "uid" : "2f3f5666bafdd495",
+  "name" : "show image of missing entity",
+  "historyId" : "04e603c59a11f85ae65a9b9768a7ee3c",
+  "time" : {
+    "start" : 1639121429270,
+    "stop" : 1639121429874,
+    "duration" : 604
+  },
+  "status" : "broken",
+  "statusMessage" : "\nYou can implement step definitions for undefined steps with these snippets:\n\n@when(u'the user says  \"show me the latest picture of Albert Einstein\"')\ndef step_impl(context):\n    raise NotImplementedError(u'STEP: When the user says  \"show me the latest picture of Albert Einstein\"')\n\n",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ ],
+  "testStage" : {
+    "status" : "broken",
+    "statusMessage" : "\nYou can implement step definitions for undefined steps with these snippets:\n\n@when(u'the user says  \"show me the latest picture of Albert Einstein\"')\ndef step_impl(context):\n    raise NotImplementedError(u'STEP: When the user says  \"show me the latest picture of Albert Einstein\"')\n\n",
+    "steps" : [ {
+      "name" : "Given an English speaking user",
+      "time" : {
+        "start" : 1639121429271,
+        "stop" : 1639121429271,
+        "duration" : 0
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "When the user says  \"show me the latest picture of Albert Einstein\"",
+      "time" : {
+        "start" : 1639121429271,
+        "stop" : 1639121429271,
+        "duration" : 0
+      },
+      "status" : "broken",
+      "statusMessage" : "\nYou can implement step definitions for undefined steps with these snippets:\n\n@when(u'the user says  \"show me the latest picture of Albert Einstein\"')\ndef step_impl(context):\n    raise NotImplementedError(u'STEP: When the user says  \"show me the latest picture of Albert Einstein\"')\n\n",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : true,
+      "hasContent" : true
+    }, {
+      "name" : "Then \"skill-homeassistant\" should not reply",
+      "time" : {
+        "start" : 1639121429572,
+        "stop" : 1639121429573,
+        "duration" : 1
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "Given an English speaking user",
+      "time" : {
+        "start" : 1639121429573,
+        "stop" : 1639121429573,
+        "duration" : 0
+      },
+      "status" : "broken",
+      "statusMessage" : "\nYou can implement step definitions for undefined steps with these snippets:\n\n@when(u'the user says  \"show me the latest picture of Albert Einstein\"')\ndef step_impl(context):\n    raise NotImplementedError(u'STEP: When the user says  \"show me the latest picture of Albert Einstein\"')\n\n",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : true,
+      "hasContent" : true
+    }, {
+      "name" : "When the user says  \"show me the latest picture of Albert Einstein\"",
+      "time" : {
+        "start" : 1639121429874,
+        "stop" : 1639121429874,
+        "duration" : 0
+      },
+      "status" : "broken",
+      "statusMessage" : "\nYou can implement step definitions for undefined steps with these snippets:\n\n@when(u'the user says  \"show me the latest picture of Albert Einstein\"')\ndef step_impl(context):\n    raise NotImplementedError(u'STEP: When the user says  \"show me the latest picture of Albert Einstein\"')\n\n",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : true,
+      "hasContent" : true
+    }, {
+      "name" : "Then \"skill-homeassistant\" should not reply",
+      "time" : {
+        "start" : 1639121429874,
+        "stop" : 1639121429874,
+        "duration" : 0
+      },
+      "status" : "skipped",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    } ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 6,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : true
+  },
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "severity",
+    "value" : "normal"
+  }, {
+    "name" : "suite",
+    "value" : "behave"
+  }, {
+    "name" : "feature",
+    "value" : "camera"
+  }, {
+    "name" : "framework",
+    "value" : "behave"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ ],
+    "categories" : [ {
+      "name" : "Test defects",
+      "matchedStatuses" : [ ],
+      "flaky" : false
+    } ],
+    "tags" : [ ]
+  },
+  "source" : "2f3f5666bafdd495.json",
+  "parameterValues" : [ ]
+}
