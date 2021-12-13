@@ -1,0 +1,88 @@
+{
+  "uid" : "cad7f7ad327efd51",
+  "name" : "test_ip_six_full",
+  "fullName" : "unittests.test_haclient.TestUrlChecker#test_ip_six_full",
+  "historyId" : "1252d07259561d70b6e2f935e45c64c5",
+  "time" : {
+    "start" : 1639421267462,
+    "stop" : 1639421267462,
+    "duration" : 0
+  },
+  "description" : "Test regex parsing user inputted url as ip v6 address",
+  "descriptionHtml" : "<p>Test regex parsing user inputted url as ip v6 address</p>\n",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ {
+    "name" : "_UnitTestCase__pytest_class_setup",
+    "time" : {
+      "start" : 1639421267448,
+      "stop" : 1639421267448,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  } ],
+  "afterStages" : [ {
+    "name" : "_UnitTestCase__pytest_class_setup::0",
+    "time" : {
+      "start" : 1639421267467,
+      "stop" : 1639421267467,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  } ],
+  "labels" : [ {
+    "name" : "parentSuite",
+    "value" : "unittests"
+  }, {
+    "name" : "suite",
+    "value" : "test_haclient"
+  }, {
+    "name" : "subSuite",
+    "value" : "TestUrlChecker"
+  }, {
+    "name" : "host",
+    "value" : "fv-az183-872"
+  }, {
+    "name" : "thread",
+    "value" : "6581-MainThread"
+  }, {
+    "name" : "framework",
+    "value" : "pytest"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "package",
+    "value" : "unittests.test_haclient"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ ],
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "cad7f7ad327efd51.json",
+  "parameterValues" : [ ]
+}
