@@ -7,10 +7,9 @@ Awaken your home - Control Home Assistant
 Currently the following entity types are supported: `light`, `switch`, `scene`, `climate`, `groups`, `input_boolean`, `binary_sensor`, `cover` and `camera`
 
 ## Examples
-* "Turn on the office light"
+* "Turn on office light"
 * "Turn off bedroom lights"
-* "Turn on on the AC"
-* "Read bedroom temperature"
+* "What is the temperature of thermostat bedroom"
 * "Open the living room blinds"
 * "Close the garage door"
 * "Open Home Assistant"
