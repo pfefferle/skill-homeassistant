@@ -1,0 +1,88 @@
+{
+  "uid" : "28592828f5ef114f",
+  "name" : "test_mock_ssl_no_port",
+  "fullName" : "unittests.test_haclient.TestHaClient#test_mock_ssl_no_port",
+  "historyId" : "78cc172bab8fdedf0eda382d72c2a58b",
+  "time" : {
+    "start" : 1647514735028,
+    "stop" : 1647514735029,
+    "duration" : 1
+  },
+  "description" : "Test with ssl and without port number specified",
+  "descriptionHtml" : "<p>Test with ssl and without port number specified</p>\n",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ {
+    "name" : "_UnitTestCase__pytest_class_setup",
+    "time" : {
+      "start" : 1647514734965,
+      "stop" : 1647514734966,
+      "duration" : 1
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  } ],
+  "afterStages" : [ {
+    "name" : "_UnitTestCase__pytest_class_setup::0",
+    "time" : {
+      "start" : 1647514735033,
+      "stop" : 1647514735033,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  } ],
+  "labels" : [ {
+    "name" : "parentSuite",
+    "value" : "unittests"
+  }, {
+    "name" : "suite",
+    "value" : "test_haclient"
+  }, {
+    "name" : "subSuite",
+    "value" : "TestHaClient"
+  }, {
+    "name" : "host",
+    "value" : "fv-az183-117"
+  }, {
+    "name" : "thread",
+    "value" : "6114-MainThread"
+  }, {
+    "name" : "framework",
+    "value" : "pytest"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "package",
+    "value" : "unittests.test_haclient"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ ],
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "28592828f5ef114f.json",
+  "parameterValues" : [ ]
+}

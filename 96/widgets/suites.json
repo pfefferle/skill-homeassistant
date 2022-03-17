@@ -1,0 +1,26 @@
+{
+  "total" : 2,
+  "items" : [ {
+    "uid" : "bf0a5b53b63c35fccb9af88cbe00a7da",
+    "name" : "behave",
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 0,
+      "skipped" : 0,
+      "passed" : 20,
+      "unknown" : 0,
+      "total" : 20
+    }
+  }, {
+    "uid" : "5a9ac8a6e38982e9bed8d64b5d8d75d3",
+    "name" : "unittests",
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 0,
+      "skipped" : 0,
+      "passed" : 11,
+      "unknown" : 0,
+      "total" : 11
+    }
+  } ]
+}

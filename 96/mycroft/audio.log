@@ -1,0 +1,380 @@
+2022-03-17 10:57:49.641 | INFO     |  4733 | __main__:main:46 | Starting Audio Service
+2022-03-17 10:57:49.647 | INFO     |  4733 | mycroft.messagebus.load_config:load_message_bus_config:33 | Loading message bus configs
+2022-03-17 10:57:49.649 | INFO     |  4733 | mycroft_bus_client.client.client | Connected
+2022-03-17 10:57:49.657 | INFO     |  4733 | mycroft.util.process_utils:start_message_bus_client:155 | Connected to messagebus
+2022-03-17 10:57:50.008 | ERROR    |  4733 | mycroft.tts.mimic_tts:validate_connection:224 | Mimic executable not found
+2022-03-17 10:57:50.008 | ERROR    |  4733 | mycroft.tts.tts:create:722 | The TTS could not be loaded.
+Traceback (most recent call last):
+  File "/opt/mycroft-core/mycroft/tts/mimic_tts.py", line 219, in validate_connection
+    subprocess.call([mimic_bin, '--version'])
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/subprocess.py", line 339, in call
+    with Popen(*popenargs, **kwargs) as p:
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/subprocess.py", line 800, in __init__
+    restore_signals, start_new_session)
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/subprocess.py", line 1465, in _execute_child
+    executable = os.fsencode(executable)
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/os.py", line 812, in fsencode
+    filename = fspath(filename)  # Does type-checking of `filename`.
+TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/mycroft-core/mycroft/tts/tts.py", line 711, in create
+    tts.validator.validate()
+  File "/opt/mycroft-core/mycroft/tts/tts.py", line 599, in validate
+    self.validate_connection()
+  File "/opt/mycroft-core/mycroft/tts/mimic_tts.py", line 227, in validate_connection
+    from err
+Exception: Mimic was not found. Run install-mimic.sh to install it.
+2022-03-17 10:57:50.035 | ERROR    |  4733 | __main__:on_error:37 | Audio service failed to launch (Exception('Mimic was not found. Run install-mimic.sh to install it.')).
+2022-03-17 10:58:02.815 | ERROR    |  4733 | concurrent.futures | exception calling callback for <Future at 0x7f0f90921850 state=finished raised AttributeError>
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/_base.py", line 324, in _invoke_callbacks
+    callback(self)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_executor.py", line 56, in _callback
+    self.emit('error', exc)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 116, in emit
+    self._emit_handle_potential_error(event, args[0] if args else None)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 86, in _emit_handle_potential_error
+    raise error
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 77, in handle_speak
+    chunks = tts.preprocess_utterance(utterance)
+AttributeError: 'NoneType' object has no attribute 'preprocess_utterance'
+2022-03-17 10:58:33.334 | ERROR    |  4733 | concurrent.futures | exception calling callback for <Future at 0x7f0f9092df50 state=finished raised AttributeError>
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/_base.py", line 324, in _invoke_callbacks
+    callback(self)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_executor.py", line 56, in _callback
+    self.emit('error', exc)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 116, in emit
+    self._emit_handle_potential_error(event, args[0] if args else None)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 86, in _emit_handle_potential_error
+    raise error
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 77, in handle_speak
+    chunks = tts.preprocess_utterance(utterance)
+AttributeError: 'NoneType' object has no attribute 'preprocess_utterance'
+2022-03-17 10:59:03.882 | ERROR    |  4733 | concurrent.futures | exception calling callback for <Future at 0x7f0f93ca31d0 state=finished raised AttributeError>
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/_base.py", line 324, in _invoke_callbacks
+    callback(self)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_executor.py", line 56, in _callback
+    self.emit('error', exc)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 116, in emit
+    self._emit_handle_potential_error(event, args[0] if args else None)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 86, in _emit_handle_potential_error
+    raise error
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 77, in handle_speak
+    chunks = tts.preprocess_utterance(utterance)
+AttributeError: 'NoneType' object has no attribute 'preprocess_utterance'
+2022-03-17 10:59:12.186 | ERROR    |  4733 | concurrent.futures | exception calling callback for <Future at 0x7f0f93ca2f10 state=finished raised AttributeError>
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/_base.py", line 324, in _invoke_callbacks
+    callback(self)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_executor.py", line 56, in _callback
+    self.emit('error', exc)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 116, in emit
+    self._emit_handle_potential_error(event, args[0] if args else None)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 86, in _emit_handle_potential_error
+    raise error
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 77, in handle_speak
+    chunks = tts.preprocess_utterance(utterance)
+AttributeError: 'NoneType' object has no attribute 'preprocess_utterance'
+2022-03-17 10:59:12.577 | ERROR    |  4733 | concurrent.futures | exception calling callback for <Future at 0x7f0f93ca2610 state=finished raised AttributeError>
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/_base.py", line 324, in _invoke_callbacks
+    callback(self)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_executor.py", line 56, in _callback
+    self.emit('error', exc)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 116, in emit
+    self._emit_handle_potential_error(event, args[0] if args else None)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 86, in _emit_handle_potential_error
+    raise error
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 77, in handle_speak
+    chunks = tts.preprocess_utterance(utterance)
+AttributeError: 'NoneType' object has no attribute 'preprocess_utterance'
+2022-03-17 10:59:12.969 | ERROR    |  4733 | concurrent.futures | exception calling callback for <Future at 0x7f0f93c9dc50 state=finished raised AttributeError>
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/_base.py", line 324, in _invoke_callbacks
+    callback(self)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_executor.py", line 56, in _callback
+    self.emit('error', exc)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 116, in emit
+    self._emit_handle_potential_error(event, args[0] if args else None)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 86, in _emit_handle_potential_error
+    raise error
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 77, in handle_speak
+    chunks = tts.preprocess_utterance(utterance)
+AttributeError: 'NoneType' object has no attribute 'preprocess_utterance'
+2022-03-17 10:59:13.604 | ERROR    |  4733 | concurrent.futures | exception calling callback for <Future at 0x7f0f93c9da90 state=finished raised AttributeError>
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/_base.py", line 324, in _invoke_callbacks
+    callback(self)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_executor.py", line 56, in _callback
+    self.emit('error', exc)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 116, in emit
+    self._emit_handle_potential_error(event, args[0] if args else None)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 86, in _emit_handle_potential_error
+    raise error
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 77, in handle_speak
+    chunks = tts.preprocess_utterance(utterance)
+AttributeError: 'NoneType' object has no attribute 'preprocess_utterance'
+2022-03-17 10:59:22.222 | ERROR    |  4733 | concurrent.futures | exception calling callback for <Future at 0x7f0f908e5d90 state=finished raised AttributeError>
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/_base.py", line 324, in _invoke_callbacks
+    callback(self)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_executor.py", line 56, in _callback
+    self.emit('error', exc)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 116, in emit
+    self._emit_handle_potential_error(event, args[0] if args else None)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 86, in _emit_handle_potential_error
+    raise error
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 77, in handle_speak
+    chunks = tts.preprocess_utterance(utterance)
+AttributeError: 'NoneType' object has no attribute 'preprocess_utterance'
+2022-03-17 10:59:22.972 | ERROR    |  4733 | concurrent.futures | exception calling callback for <Future at 0x7f0f908f1510 state=finished raised AttributeError>
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/_base.py", line 324, in _invoke_callbacks
+    callback(self)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_executor.py", line 56, in _callback
+    self.emit('error', exc)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 116, in emit
+    self._emit_handle_potential_error(event, args[0] if args else None)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 86, in _emit_handle_potential_error
+    raise error
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 77, in handle_speak
+    chunks = tts.preprocess_utterance(utterance)
+AttributeError: 'NoneType' object has no attribute 'preprocess_utterance'
+2022-03-17 10:59:23.322 | ERROR    |  4733 | concurrent.futures | exception calling callback for <Future at 0x7f0f908f1690 state=finished raised AttributeError>
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/_base.py", line 324, in _invoke_callbacks
+    callback(self)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_executor.py", line 56, in _callback
+    self.emit('error', exc)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 116, in emit
+    self._emit_handle_potential_error(event, args[0] if args else None)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 86, in _emit_handle_potential_error
+    raise error
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 77, in handle_speak
+    chunks = tts.preprocess_utterance(utterance)
+AttributeError: 'NoneType' object has no attribute 'preprocess_utterance'
+2022-03-17 10:59:23.955 | ERROR    |  4733 | concurrent.futures | exception calling callback for <Future at 0x7f0f93c9d850 state=finished raised AttributeError>
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/_base.py", line 324, in _invoke_callbacks
+    callback(self)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_executor.py", line 56, in _callback
+    self.emit('error', exc)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 116, in emit
+    self._emit_handle_potential_error(event, args[0] if args else None)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 86, in _emit_handle_potential_error
+    raise error
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 77, in handle_speak
+    chunks = tts.preprocess_utterance(utterance)
+AttributeError: 'NoneType' object has no attribute 'preprocess_utterance'
+2022-03-17 10:59:24.368 | ERROR    |  4733 | concurrent.futures | exception calling callback for <Future at 0x7f0f93c9dd10 state=finished raised AttributeError>
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/_base.py", line 324, in _invoke_callbacks
+    callback(self)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_executor.py", line 56, in _callback
+    self.emit('error', exc)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 116, in emit
+    self._emit_handle_potential_error(event, args[0] if args else None)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 86, in _emit_handle_potential_error
+    raise error
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 77, in handle_speak
+    chunks = tts.preprocess_utterance(utterance)
+AttributeError: 'NoneType' object has no attribute 'preprocess_utterance'
+2022-03-17 10:59:25.220 | ERROR    |  4733 | concurrent.futures | exception calling callback for <Future at 0x7f0f93ca2090 state=finished raised AttributeError>
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/_base.py", line 324, in _invoke_callbacks
+    callback(self)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_executor.py", line 56, in _callback
+    self.emit('error', exc)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 116, in emit
+    self._emit_handle_potential_error(event, args[0] if args else None)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 86, in _emit_handle_potential_error
+    raise error
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 77, in handle_speak
+    chunks = tts.preprocess_utterance(utterance)
+AttributeError: 'NoneType' object has no attribute 'preprocess_utterance'
+2022-03-17 10:59:26.263 | ERROR    |  4733 | concurrent.futures | exception calling callback for <Future at 0x7f0f93ca2550 state=finished raised AttributeError>
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/_base.py", line 324, in _invoke_callbacks
+    callback(self)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_executor.py", line 56, in _callback
+    self.emit('error', exc)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 116, in emit
+    self._emit_handle_potential_error(event, args[0] if args else None)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 86, in _emit_handle_potential_error
+    raise error
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 77, in handle_speak
+    chunks = tts.preprocess_utterance(utterance)
+AttributeError: 'NoneType' object has no attribute 'preprocess_utterance'
+2022-03-17 10:59:32.643 | ERROR    |  4733 | concurrent.futures | exception calling callback for <Future at 0x7f0f93ca2d10 state=finished raised AttributeError>
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/_base.py", line 324, in _invoke_callbacks
+    callback(self)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_executor.py", line 56, in _callback
+    self.emit('error', exc)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 116, in emit
+    self._emit_handle_potential_error(event, args[0] if args else None)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 86, in _emit_handle_potential_error
+    raise error
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 77, in handle_speak
+    chunks = tts.preprocess_utterance(utterance)
+AttributeError: 'NoneType' object has no attribute 'preprocess_utterance'
+2022-03-17 10:59:33.661 | ERROR    |  4733 | concurrent.futures | exception calling callback for <Future at 0x7f0f93ca34d0 state=finished raised AttributeError>
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/_base.py", line 324, in _invoke_callbacks
+    callback(self)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_executor.py", line 56, in _callback
+    self.emit('error', exc)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 116, in emit
+    self._emit_handle_potential_error(event, args[0] if args else None)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 86, in _emit_handle_potential_error
+    raise error
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 77, in handle_speak
+    chunks = tts.preprocess_utterance(utterance)
+AttributeError: 'NoneType' object has no attribute 'preprocess_utterance'
+2022-03-17 10:59:43.328 | ERROR    |  4733 | concurrent.futures | exception calling callback for <Future at 0x7f0f93ca3550 state=finished raised AttributeError>
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/_base.py", line 324, in _invoke_callbacks
+    callback(self)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_executor.py", line 56, in _callback
+    self.emit('error', exc)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 116, in emit
+    self._emit_handle_potential_error(event, args[0] if args else None)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 86, in _emit_handle_potential_error
+    raise error
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 77, in handle_speak
+    chunks = tts.preprocess_utterance(utterance)
+AttributeError: 'NoneType' object has no attribute 'preprocess_utterance'
+2022-03-17 10:59:53.632 | ERROR    |  4733 | concurrent.futures | exception calling callback for <Future at 0x7f0f9092de90 state=finished raised AttributeError>
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/_base.py", line 324, in _invoke_callbacks
+    callback(self)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_executor.py", line 56, in _callback
+    self.emit('error', exc)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 116, in emit
+    self._emit_handle_potential_error(event, args[0] if args else None)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 86, in _emit_handle_potential_error
+    raise error
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 77, in handle_speak
+    chunks = tts.preprocess_utterance(utterance)
+AttributeError: 'NoneType' object has no attribute 'preprocess_utterance'
+2022-03-17 11:00:03.977 | ERROR    |  4733 | concurrent.futures | exception calling callback for <Future at 0x7f0f90921790 state=finished raised AttributeError>
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/_base.py", line 324, in _invoke_callbacks
+    callback(self)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_executor.py", line 56, in _callback
+    self.emit('error', exc)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 116, in emit
+    self._emit_handle_potential_error(event, args[0] if args else None)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 86, in _emit_handle_potential_error
+    raise error
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 77, in handle_speak
+    chunks = tts.preprocess_utterance(utterance)
+AttributeError: 'NoneType' object has no attribute 'preprocess_utterance'
+2022-03-17 11:00:14.211 | ERROR    |  4733 | concurrent.futures | exception calling callback for <Future at 0x7f0f908f1590 state=finished raised AttributeError>
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/_base.py", line 324, in _invoke_callbacks
+    callback(self)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_executor.py", line 56, in _callback
+    self.emit('error', exc)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 116, in emit
+    self._emit_handle_potential_error(event, args[0] if args else None)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 86, in _emit_handle_potential_error
+    raise error
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 77, in handle_speak
+    chunks = tts.preprocess_utterance(utterance)
+AttributeError: 'NoneType' object has no attribute 'preprocess_utterance'
+2022-03-17 11:00:14.546 | ERROR    |  4733 | concurrent.futures | exception calling callback for <Future at 0x7f0f908f1510 state=finished raised AttributeError>
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/_base.py", line 324, in _invoke_callbacks
+    callback(self)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_executor.py", line 56, in _callback
+    self.emit('error', exc)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 116, in emit
+    self._emit_handle_potential_error(event, args[0] if args else None)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 86, in _emit_handle_potential_error
+    raise error
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 77, in handle_speak
+    chunks = tts.preprocess_utterance(utterance)
+AttributeError: 'NoneType' object has no attribute 'preprocess_utterance'
+2022-03-17 11:00:14.937 | ERROR    |  4733 | concurrent.futures | exception calling callback for <Future at 0x7f0f908f1cd0 state=finished raised AttributeError>
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/_base.py", line 324, in _invoke_callbacks
+    callback(self)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_executor.py", line 56, in _callback
+    self.emit('error', exc)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 116, in emit
+    self._emit_handle_potential_error(event, args[0] if args else None)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 86, in _emit_handle_potential_error
+    raise error
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 77, in handle_speak
+    chunks = tts.preprocess_utterance(utterance)
+AttributeError: 'NoneType' object has no attribute 'preprocess_utterance'
+2022-03-17 11:00:25.242 | ERROR    |  4733 | concurrent.futures | exception calling callback for <Future at 0x7f0f908f91d0 state=finished raised AttributeError>
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/_base.py", line 324, in _invoke_callbacks
+    callback(self)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_executor.py", line 56, in _callback
+    self.emit('error', exc)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 116, in emit
+    self._emit_handle_potential_error(event, args[0] if args else None)
+  File "/opt/mycroft-core/.venv/lib/python3.7/site-packages/pyee/_base.py", line 86, in _emit_handle_potential_error
+    raise error
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/opt/mycroft-core/mycroft/audio/speech.py", line 77, in handle_speak
+    chunks = tts.preprocess_utterance(utterance)
+AttributeError: 'NoneType' object has no attribute 'preprocess_utterance'
+Exception ignored in: <module 'threading' from '/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/threading.py'>
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/threading.py", line 1307, in _shutdown
+    lock.acquire()
+KeyboardInterrupt
