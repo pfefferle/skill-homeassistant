@@ -1,0 +1,158 @@
+{
+  "uid" : "ba8d6c2aecfbeb73",
+  "name" : "tracker",
+  "historyId" : "bec0b9ee4648af3b77db73e8070f1736",
+  "time" : {
+    "start" : 1647514808675,
+    "stop" : 1647514829281,
+    "duration" : 20606
+  },
+  "status" : "failed",
+  "statusMessage" : "AssertionError: No speech contained the expected contentMycroft responded with:\nMycroft: unknown.dialog(UnknownSkill)\n\"I don't know what that means.\"\n\n",
+  "statusTrace" : "  File \"/opt/mycroft-core/.venv/lib/python3.7/site-packages/behave/model.py\", line 1806, in run\n    match.run(runner.context)\n  File \"/opt/mycroft-core/.venv/lib/python3.7/site-packages/behave/matchers.py\", line 97, in run\n    self.func(context, *args, **kwargs)\n  File \"features/steps/utterance_responses.py\", line 260, in then_contains\n    assert passed, assert_msg\n",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ ],
+  "testStage" : {
+    "status" : "failed",
+    "statusMessage" : "AssertionError: No speech contained the expected contentMycroft responded with:\nMycroft: unknown.dialog(UnknownSkill)\n\"I don't know what that means.\"\n\n",
+    "statusTrace" : "  File \"/opt/mycroft-core/.venv/lib/python3.7/site-packages/behave/model.py\", line 1806, in run\n    match.run(runner.context)\n  File \"/opt/mycroft-core/.venv/lib/python3.7/site-packages/behave/matchers.py\", line 97, in run\n    self.func(context, *args, **kwargs)\n  File \"features/steps/utterance_responses.py\", line 260, in then_contains\n    assert passed, assert_msg\n",
+    "steps" : [ {
+      "name" : "Given an English speaking user",
+      "time" : {
+        "start" : 1647514808676,
+        "stop" : 1647514808676,
+        "duration" : 0
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "When the user says \"give me location of the mark\"",
+      "time" : {
+        "start" : 1647514808676,
+        "stop" : 1647514808676,
+        "duration" : 0
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "Then mycroft reply should contain \"home\"",
+      "time" : {
+        "start" : 1647514808676,
+        "stop" : 1647514818677,
+        "duration" : 10001
+      },
+      "status" : "failed",
+      "statusMessage" : "AssertionError: No speech contained the expected contentMycroft responded with:\nMycroft: unknown.dialog(UnknownSkill)\n\"Please rephrase your request.\"\n\n",
+      "statusTrace" : "  File \"/opt/mycroft-core/.venv/lib/python3.7/site-packages/behave/model.py\", line 1806, in run\n    match.run(runner.context)\n  File \"/opt/mycroft-core/.venv/lib/python3.7/site-packages/behave/matchers.py\", line 97, in run\n    self.func(context, *args, **kwargs)\n  File \"features/steps/utterance_responses.py\", line 260, in then_contains\n    assert passed, assert_msg\n",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : true,
+      "hasContent" : true
+    }, {
+      "name" : "Given an English speaking user",
+      "time" : {
+        "start" : 1647514818979,
+        "stop" : 1647514818979,
+        "duration" : 0
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "When the user says \"give me location of the mark\"",
+      "time" : {
+        "start" : 1647514818979,
+        "stop" : 1647514818979,
+        "duration" : 0
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "Then mycroft reply should contain \"home\"",
+      "time" : {
+        "start" : 1647514818979,
+        "stop" : 1647514828980,
+        "duration" : 10001
+      },
+      "status" : "failed",
+      "statusMessage" : "AssertionError: No speech contained the expected contentMycroft responded with:\nMycroft: unknown.dialog(UnknownSkill)\n\"I don't know what that means.\"\n\n",
+      "statusTrace" : "  File \"/opt/mycroft-core/.venv/lib/python3.7/site-packages/behave/model.py\", line 1806, in run\n    match.run(runner.context)\n  File \"/opt/mycroft-core/.venv/lib/python3.7/site-packages/behave/matchers.py\", line 97, in run\n    self.func(context, *args, **kwargs)\n  File \"features/steps/utterance_responses.py\", line 260, in then_contains\n    assert passed, assert_msg\n",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : true,
+      "hasContent" : true
+    } ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 6,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : true
+  },
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "severity",
+    "value" : "normal"
+  }, {
+    "name" : "suite",
+    "value" : "behave"
+  }, {
+    "name" : "feature",
+    "value" : "tracker"
+  }, {
+    "name" : "framework",
+    "value" : "behave"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ ],
+    "categories" : [ {
+      "name" : "Product defects",
+      "matchedStatuses" : [ ],
+      "flaky" : false
+    } ],
+    "tags" : [ ]
+  },
+  "source" : "ba8d6c2aecfbeb73.json",
+  "parameterValues" : [ ]
+}

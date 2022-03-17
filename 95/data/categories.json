@@ -1,0 +1,154 @@
+{
+  "uid" : "4b4757e66a1912dae1a509f688f20b0f",
+  "children" : [ {
+    "name" : "Product defects",
+    "children" : [ {
+      "name" : "AssertionError: No speech contained the expected contentMycroft responded with:\nMycroft: unknown.dialog(UnknownSkill)\n\"I don't understand.\"\n\n",
+      "children" : [ {
+        "name" : "read sensor",
+        "uid" : "91fbcc9bfebaba55",
+        "parentUid" : "32ca47f45d5024674380c656c652958d",
+        "status" : "failed",
+        "time" : {
+          "start" : 1647514642776,
+          "stop" : 1647514663385,
+          "duration" : 20609
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "32ca47f45d5024674380c656c652958d"
+    }, {
+      "name" : "AssertionError: Mycroft responded with:\nMycroft: unknown.dialog(UnknownSkill)\n\"I don't know what that means.\"\n\n",
+      "children" : [ {
+        "name" : "turn on switch",
+        "uid" : "5bfe2b09470c1723",
+        "parentUid" : "45a13cb40ca778c6dc45a2acee4811d6",
+        "status" : "failed",
+        "time" : {
+          "start" : 1647514663387,
+          "stop" : 1647514683993,
+          "duration" : 20606
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "45a13cb40ca778c6dc45a2acee4811d6"
+    }, {
+      "name" : "AssertionError: Mycroft responded with:\nMycroft: unknown.dialog(UnknownSkill)\n\"Sorry, I don't understand.\"\n\n",
+      "children" : [ {
+        "name" : "toggle off switch",
+        "uid" : "74eeaadb3ce4b487",
+        "parentUid" : "4c3c8f39ba2c4762430999d5ff771768",
+        "status" : "failed",
+        "time" : {
+          "start" : 1647514683994,
+          "stop" : 1647514704602,
+          "duration" : 20608
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      }, {
+        "name" : "turn off switch",
+        "uid" : "af72601159ce5589",
+        "parentUid" : "4c3c8f39ba2c4762430999d5ff771768",
+        "status" : "failed",
+        "time" : {
+          "start" : 1647514725211,
+          "stop" : 1647514745816,
+          "duration" : 20605
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      }, {
+        "name" : "turn off light",
+        "uid" : "95bf3e1c94669ff7",
+        "parentUid" : "4c3c8f39ba2c4762430999d5ff771768",
+        "status" : "failed",
+        "time" : {
+          "start" : 1647514767459,
+          "stop" : 1647514788065,
+          "duration" : 20606
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "4c3c8f39ba2c4762430999d5ff771768"
+    }, {
+      "name" : "AssertionError: Mycroft responded with:\nMycroft: unknown.dialog(UnknownSkill)\n\"I don't understand, but I'm learning new things everyday.\"\n\n",
+      "children" : [ {
+        "name" : "toggle on switch",
+        "uid" : "805ea055664a731c",
+        "parentUid" : "e23dfc54651e361693c90c60d996d032",
+        "status" : "failed",
+        "time" : {
+          "start" : 1647514704603,
+          "stop" : 1647514725209,
+          "duration" : 20606
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "e23dfc54651e361693c90c60d996d032"
+    }, {
+      "name" : "AssertionError: Mycroft responded with:\nMycroft: unknown.dialog(UnknownSkill)\n\"I'm sorry, I don't understand.\"\n\n",
+      "children" : [ {
+        "name" : "turn on light",
+        "uid" : "d7dddeb4374773cb",
+        "parentUid" : "b2254bcaf399e14562d0e06832a67edc",
+        "status" : "failed",
+        "time" : {
+          "start" : 1647514745817,
+          "stop" : 1647514766424,
+          "duration" : 20607
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "b2254bcaf399e14562d0e06832a67edc"
+    }, {
+      "name" : "AssertionError: Mycroft responded with:\nMycroft: unknown.dialog(UnknownSkill)\n\"Sorry, I didn't catch that.\"\n\n",
+      "children" : [ {
+        "name" : "triger automation",
+        "uid" : "6abca263f7f68ce5",
+        "parentUid" : "b61c174dfc85fb10fc87f16bc0d1b4b8",
+        "status" : "failed",
+        "time" : {
+          "start" : 1647514788066,
+          "stop" : 1647514808672,
+          "duration" : 20606
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "b61c174dfc85fb10fc87f16bc0d1b4b8"
+    }, {
+      "name" : "AssertionError: No speech contained the expected contentMycroft responded with:\nMycroft: unknown.dialog(UnknownSkill)\n\"I don't know what that means.\"\n\n",
+      "children" : [ {
+        "name" : "tracker",
+        "uid" : "ba8d6c2aecfbeb73",
+        "parentUid" : "b770c0eeeb43941a5b12c200439b304f",
+        "status" : "failed",
+        "time" : {
+          "start" : 1647514808675,
+          "stop" : 1647514829281,
+          "duration" : 20606
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "b770c0eeeb43941a5b12c200439b304f"
+    } ],
+    "uid" : "8fb3a91ba5aaf9de24cc8a92edc82b5d"
+  } ],
+  "name" : "categories"
+}
