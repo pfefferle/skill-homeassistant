@@ -1,8 +1,12 @@
 """
 Home Assistant skill
 """  # pylint: disable=C0103
+from os.path import join as pth_join
+
 from mycroft import MycroftSkill, intent_handler
+from mycroft.messagebus.message import Message
 from mycroft.skills.core import FallbackSkill
+from mycroft.util import get_cache_directory
 from mycroft.util.format import nice_number
 from quantulum3 import parser
 from requests.exceptions import (HTTPError, InvalidURL, RequestException,
@@ -22,13 +26,14 @@ TIMEOUT = 10
 class HomeAssistantSkill(FallbackSkill):
     """Main skill class"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         MycroftSkill.__init__(self)
         super().__init__(name="HomeAssistantSkill")
         self.ha_client = None
         self.enable_fallback = False
+        self.tracker_file = ""
 
-    def _setup(self, force=False):
+    def _setup(self, force: bool = False) -> None:
         if self.settings is not None and (force or self.ha_client is None):
             # Check if user filled IP, port and Token in configuration
             ip_address = check_url(str(self.settings.get('host')))
@@ -76,11 +81,32 @@ class HomeAssistantSkill(FallbackSkill):
                     self.enable_fallback = \
                         self.settings.get('enable_fallback')
 
-    def _force_setup(self):
+                # Register tracker entities
+                self._register_tracker_entities()
+
+    def _force_setup(self) -> None:
         self.log.debug('Creating a new HomeAssistant-Client')
         self._setup(True)
 
-    def initialize(self):
+    def _register_tracker_entities(self) -> None:
+        """List tracker entities.
+
+        Add them to entity file and registry it so
+        Padatious react only to known entities.
+        Should fix conflict with Where is skill.
+        """
+        types = ['device_tracker']
+        entities = self.ha_client.list_entities(types)
+
+        if entities:
+            cache_dir = get_cache_directory(type(self).__name__)
+            self.tracker_file = pth_join(cache_dir, "tracker.entity")
+
+            with open(self.tracker_file, 'w', encoding='utf8') as voc_file:
+                voc_file.write('\n'.join(entities))
+            self.register_entity_file(self.tracker_file)
+
+    def initialize(self) -> None:
         """Initialize skill, set language and priority."""
         # pylint: disable=W0201
         self.language = self.config_core.get('lang')
@@ -92,7 +118,7 @@ class HomeAssistantSkill(FallbackSkill):
         self.settings_change_callback = self.on_websettings_changed
         self._setup()
 
-    def on_websettings_changed(self):
+    def on_websettings_changed(self) -> None:
         """
         Force a setting refresh after the websettings changed
         otherwise new settings will not be regarded.
@@ -103,7 +129,12 @@ class HomeAssistantSkill(FallbackSkill):
     # Creates dialogs for errors and speaks them
     # Returns None if nothing was found
     # Else returns entity that was found
-    def _find_entity(self, entity, domains):
+    def _find_entity(self, entity: str, domains: list) -> dict:
+        """Handle communication with HA client for entity finding
+
+        Returns:
+            Entity
+        """
         self._setup()
         if self.ha_client is None:
             self.speak_dialog('homeassistant.error.setup')
@@ -117,10 +148,13 @@ class HomeAssistantSkill(FallbackSkill):
                               "dev_name": entity})
         return ha_entity
 
-    # Routine for entity availability check
-    def _check_availability(self, ha_entity):
+    def _check_availability(self, ha_entity: dict) -> bool:
         """ Simple routine for checking availability of entity inside
-        Home Assistant. """
+        Home Assistant.
+
+        Returns:
+            True/False state
+        """
 
         if ha_entity['state'] == 'unavailable':
             """Check if state is unavailable, if yes, inform user about it."""
@@ -131,8 +165,11 @@ class HomeAssistantSkill(FallbackSkill):
             return False
         return True
 
-    # Calls passed method and catches often occurring exceptions
     def _handle_client_exception(self, callback, *args, **kwargs):
+        """Calls passed method and catches often occurring exceptions
+
+        Returns:
+            Function output or False"""
         try:
             return callback(*args, **kwargs)
         except Timeout:
@@ -163,7 +200,7 @@ class HomeAssistantSkill(FallbackSkill):
 
     # Intent handlers
     @intent_handler('turn.on.intent')
-    def handle_turn_on_intent(self, message):
+    def handle_turn_on_intent(self, message: Message) -> None:
         """Handle turn on intent."""
         self.log.debug("Turn on intent on entity: %s", message.data.get("entity"))
         message.data["Entity"] = message.data.get("entity")
@@ -171,7 +208,7 @@ class HomeAssistantSkill(FallbackSkill):
         self._handle_turn_actions(message)
 
     @intent_handler('turn.off.intent')
-    def handle_turn_off_intent(self, message):
+    def handle_turn_off_intent(self, message: Message) -> None:
         """Handle turn off intent."""
         self.log.debug("Turn off intent on entity: %s", message.data.get("entity"))
         message.data["Entity"] = message.data.get("entity")
@@ -179,28 +216,28 @@ class HomeAssistantSkill(FallbackSkill):
         self._handle_turn_actions(message)
 
     @intent_handler('open.intent')
-    def handle_open(self, message):
+    def handle_open(self, message: Message) -> None:
         """Handle open intent."""
         message.data["Entity"] = message.data.get("entity")
         message.data["Action"] = "open"
         self._handle_open_close_actions(message)
 
     @intent_handler('close.intent')
-    def handle_close(self, message):
+    def handle_close(self, message: Message) -> None:
         """Handle close intent."""
         message.data["Entity"] = message.data.get("entity")
         message.data["Action"] = "close"
         self._handle_open_close_actions(message)
 
     @intent_handler('stop.intent')
-    def handle_stop(self, message):
+    def handle_stop(self, message: Message) -> None:
         """Handle stop intent."""
         message.data["Entity"] = message.data.get("entity")
         message.data["Action"] = "stop"
         self._handle_stop_actions(message)
 
     @intent_handler('toggle.intent')
-    def handle_toggle_intent(self, message):
+    def handle_toggle_intent(self, message: Message) -> None:
         """Handle toggle intent."""
         self.log.debug("Toggle intent on entity: %s", message.data.get("entity"))
         message.data["Entity"] = message.data.get("entity")
@@ -208,14 +245,14 @@ class HomeAssistantSkill(FallbackSkill):
         self._handle_turn_actions(message)
 
     @intent_handler('sensor.intent')
-    def handle_sensor_intent(self, message):
+    def handle_sensor_intent(self, message: Message) -> None:
         """Handle sensor intent."""
         self.log.debug("Turn on intent on entity: %s", message.data.get("entity"))
         message.data["Entity"] = message.data.get("entity")
         self._handle_sensor(message)
 
     @intent_handler('set.light.brightness.intent')
-    def handle_light_set_intent(self, message):
+    def handle_light_set_intent(self, message: Message) -> None:
         """Handle set light brightness intent."""
         self.log.debug("Change light intensity: %s to %s percent", message.data.get("entity"),
                        message.data.get("brightnessvalue"))
@@ -224,7 +261,7 @@ class HomeAssistantSkill(FallbackSkill):
         self._handle_light_set(message)
 
     @intent_handler('increase.light.brightness.intent')
-    def handle_light_increase_intent(self, message):
+    def handle_light_increase_intent(self, message: Message) -> None:
         """Handle increase light brightness intent."""
         self.log.debug("Increase light intensity: %s", message.data.get("entity"))
         message.data["Entity"] = message.data.get("entity")
@@ -232,7 +269,7 @@ class HomeAssistantSkill(FallbackSkill):
         self._handle_light_adjust(message)
 
     @intent_handler('decrease.light.brightness.intent')
-    def handle_light_decrease_intent(self, message):
+    def handle_light_decrease_intent(self, message: Message) -> None:
         """Handle decrease light brightness intent."""
         self.log.debug("Decrease light intensity: %s", message.data.get("entity"))
         message.data["Entity"] = message.data.get("entity")
@@ -240,21 +277,21 @@ class HomeAssistantSkill(FallbackSkill):
         self._handle_light_adjust(message)
 
     @intent_handler('automation.intent')
-    def handle_automation_intent(self, message):
+    def handle_automation_intent(self, message: Message) -> None:
         """Handle automation intent."""
         self.log.debug("Automation trigger intent on entity: %s", message.data.get("entity"))
         message.data["Entity"] = message.data.get("entity")
         self._handle_automation(message)
 
     @intent_handler('tracker.intent')
-    def handle_tracker_intent(self, message):
+    def handle_tracker_intent(self, message: Message) -> None:
         """Handle tracker intent."""
-        self.log.debug("Turn on intent on entity: %s", message.data.get("entity"))
-        message.data["Entity"] = message.data.get("entity")
+        self.log.debug("Turn on intent on entity: %s", message.data.get("tracker"))
+        message.data["Entity"] = message.data.get("tracker")
         self._handle_tracker(message)
 
     @intent_handler('set.climate.intent')
-    def handle_set_thermostat_intent(self, message):
+    def handle_set_thermostat_intent(self, message: Message) -> None:
         """Handle set climate intent."""
         self.log.debug("Set thermostat intent on entity: %s", message.data.get("entity"))
         message.data["Entity"] = message.data.get("entity")
@@ -262,13 +299,13 @@ class HomeAssistantSkill(FallbackSkill):
         self._handle_set_thermostat(message)
 
     @intent_handler('add.item.shopping.list.intent')
-    def handle_shopping_list_intent(self, message):
+    def handle_shopping_list_intent(self, message: Message) -> None:
         """Handle add item to shopping list intent."""
         self.log.debug("Add %s to the shoping list", message.data.get("entity"))
         message.data["Entity"] = message.data.get("entity")
         self._handle_shopping_list(message)
 
-    def _handle_turn_actions(self, message):
+    def _handle_turn_actions(self, message: Message) -> None:
         """Handler for turn on/off and toggle actions."""
         self.log.debug("Starting Switch Intent")
         entity = message.data["Entity"]
@@ -345,7 +382,7 @@ class HomeAssistantSkill(FallbackSkill):
             self.speak_dialog('homeassistant.error.sorry')
             return
 
-    def _handle_light_set(self, message):
+    def _handle_light_set(self, message: Message) -> None:
         """Handle set light action."""
         entity = message.data["entity"]
         try:
@@ -380,14 +417,14 @@ class HomeAssistantSkill(FallbackSkill):
 
         return
 
-    def _handle_shopping_list(self, message):
+    def _handle_shopping_list(self, message: Message) -> None:
         """Handler for add item to shopping list action."""
         entity = message.data["Entity"]
         ha_data = {'name': entity}
         self.ha_client.execute_service("shopping_list", "add_item", ha_data)
         self.speak_dialog("homeassistant.shopping.list")
 
-    def _handle_open_close_actions(self, message):
+    def _handle_open_close_actions(self, message: Message) -> None:
         """Handler for open and close actions."""
         entity = message.data["Entity"]
         action = message.data["Action"]
@@ -458,7 +495,7 @@ class HomeAssistantSkill(FallbackSkill):
 
         return
 
-    def _handle_light_adjust(self, message):
+    def _handle_light_adjust(self, message: Message) -> None:
         """Handler for light brightness increase and decrease action"""
         entity = message.data["Entity"]
         action = message.data["Action"]
@@ -529,7 +566,7 @@ class HomeAssistantSkill(FallbackSkill):
             self.speak_dialog('homeassistant.error.sorry')
             return
 
-    def _handle_automation(self, message):
+    def _handle_automation(self, message: Message) -> None:
         """Handler for triggering automations."""
         entity = message.data["Entity"]
         self.log.debug("Entity: %s", entity)
@@ -563,7 +600,7 @@ class HomeAssistantSkill(FallbackSkill):
             self.ha_client.execute_service("scene", "turn_on",
                                            data=ha_data)
 
-    def _handle_sensor(self, message):
+    def _handle_sensor(self, message: Message) -> None:
         """Handler sensors reading"""
         entity = message.data["Entity"]
         self.log.debug("Entity: %s", entity)
@@ -580,8 +617,7 @@ class HomeAssistantSkill(FallbackSkill):
             ]
         )
 
-        # Exit if entiti not found or is unavailabe
-
+        # Exit if entity not found or is unavailabe
         if not ha_entity or not self._check_availability(ha_entity):
             return
 
@@ -667,7 +703,7 @@ class HomeAssistantSkill(FallbackSkill):
     # Proximity might be an issue
     # - overlapping command for directions modules
     # - (e.g. "How far is x from y?")
-    def _handle_tracker(self, message):
+    def _handle_tracker(self, message: Message) -> None:
         """Handler for finding trackers position."""
         entity = message.data["Entity"]
         self.log.debug("Entity: %s", entity)
@@ -687,7 +723,7 @@ class HomeAssistantSkill(FallbackSkill):
                           data={'dev_name': dev_name,
                                 'location': dev_location})
 
-    def _handle_set_thermostat(self, message):
+    def _handle_set_thermostat(self, message: Message) -> None:
         """Handler for setting thermostats."""
         entity = message.data["entity"]
         self.log.debug("Entity: %s", entity)
@@ -727,10 +763,13 @@ class HomeAssistantSkill(FallbackSkill):
         self.gui["sensorDescription"] = description
         self.gui.show_page("sensors.qml", override_idle=15)
 
-    def handle_fallback(self, message):
+    def handle_fallback(self, message: Message) -> bool:
         """
         Handler for direct fallback to Home Assistants
         conversation module.
+
+        Returns:
+            True/False state of fallback registration
         """
         if not self.enable_fallback:
             return False
@@ -757,7 +796,7 @@ class HomeAssistantSkill(FallbackSkill):
         self.speak(answer, expect_response=asked_question)
         return True
 
-    def shutdown(self):
+    def shutdown(self) -> None:
         """Remove fallback on exit."""
         self.remove_fallback(self.handle_fallback)
         super().shutdown()
