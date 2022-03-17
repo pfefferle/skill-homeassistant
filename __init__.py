@@ -200,7 +200,7 @@ class HomeAssistantSkill(FallbackSkill):
 
     # Intent handlers
     @intent_handler('show.camera.image.intent')
-    def handle_show_camera_image_intent(self, message):
+    def handle_show_camera_image_intent(self, message: Message) -> None:
         """Handle show camera image intent."""
         message.data["Entity"] = message.data.get("entity")
         self._handle_camera_image_actions(message)
@@ -311,7 +311,7 @@ class HomeAssistantSkill(FallbackSkill):
         message.data["Entity"] = message.data.get("entity")
         self._handle_shopping_list(message)
 
-    def _handle_camera_image_actions(self, message):
+    def _handle_camera_image_actions(self, message: Message) -> None:
         """Handler for camera image actions."""
         entity = message.data["Entity"]
 
