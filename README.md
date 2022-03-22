@@ -4,7 +4,7 @@ Awaken your home - Control Home Assistant
 ## About
 [Home Assistant](https://www.home-assistant.io/) lets you control all your smart devices in a single easy to use interface. This skill uses the open source Home Assistant's APIs to control devices and entities. Control your lights, garage door, thermostats and more using your voice!
 
-Currently the following entity types are supported: `light`, `switch`, `scene`, `climate`, `groups`, `input_boolean`, `binary_sensor` and `cover`
+Currently the following entity types are supported: `light`, `switch`, `scene`, `climate`, `groups`, `input_boolean`, `binary_sensor`, `cover` and `camera`
 
 ## Examples
 * "Turn on office light"

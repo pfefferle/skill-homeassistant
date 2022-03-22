@@ -199,6 +199,12 @@ class HomeAssistantSkill(FallbackSkill):
         return False
 
     # Intent handlers
+    @intent_handler('show.camera.image.intent')
+    def handle_show_camera_image_intent(self, message: Message) -> None:
+        """Handle show camera image intent."""
+        message.data["Entity"] = message.data.get("entity")
+        self._handle_camera_image_actions(message)
+
     @intent_handler('turn.on.intent')
     def handle_turn_on_intent(self, message: Message) -> None:
         """Handle turn on intent."""
@@ -304,6 +310,27 @@ class HomeAssistantSkill(FallbackSkill):
         self.log.debug("Add %s to the shoping list", message.data.get("entity"))
         message.data["Entity"] = message.data.get("entity")
         self._handle_shopping_list(message)
+
+    def _handle_camera_image_actions(self, message: Message) -> None:
+        """Handler for camera image actions."""
+        entity = message.data["Entity"]
+
+        if not self.gui.connected:
+            self.speak_dialog('homeassistant.error.no_gui')
+            return
+
+        ha_entity = self._find_entity(entity, ['camera'])
+
+        if not ha_entity or not self._check_availability(ha_entity):
+            return
+
+        attributes = ha_entity['attributes']
+        entity_picture = attributes.get('entity_picture')
+
+        self.acknowledge()
+
+        self.gui.clear()
+        self.gui.show_image(f"{self.ha_client.url}{entity_picture}", override_idle=15)
 
     def _handle_turn_actions(self, message: Message) -> None:
         """Handler for turn on/off and toggle actions."""
@@ -492,7 +519,6 @@ class HomeAssistantSkill(FallbackSkill):
             self.speak_dialog("homeassistant.device.stopped",
                               data=ha_entity)
             return
-
         return
 
     def _handle_light_adjust(self, message: Message) -> None:
