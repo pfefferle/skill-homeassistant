@@ -548,7 +548,11 @@ class HomeAssistantSkill(FallbackSkill):
         entity = message.data["Entity"]
         action = message.data["Action"]
 
-        ha_entity = self._find_entity(entity, ['cover', 'vacuum'])
+        ha_entity = self._find_entity(
+            entity,
+            ['cover', 'vacuum', 'automation', 'scene', 'script']
+        )
+
         # Exit if entity not found or is unavailabe
         if not ha_entity or not self._check_availability(ha_entity):
             return
@@ -556,12 +560,16 @@ class HomeAssistantSkill(FallbackSkill):
         entity = ha_entity['id']
         domain = entity.split(".")[0]
 
+        if domain in ['automation', 'scene', 'script']:
+            self._handle_automation(message)
+            return
+
         ha_data = {'entity_id': ha_entity['id']}
 
         if domain == 'cover':
-            response = self.ha_client.execute_service(domain, action + '_cover', ha_data)
-        else:
-            response = self.ha_client.execute_service(domain, action, ha_data)
+            action = action + '_cover'
+
+        response = self.ha_client.execute_service(domain, action, ha_data)
 
         if response.status_code != 200:
             return
