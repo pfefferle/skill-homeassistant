@@ -205,6 +205,20 @@ class HomeAssistantSkill(FallbackSkill):
         message.data["Entity"] = message.data.get("entity")
         self._handle_camera_image_actions(message)
 
+    @intent_handler('return_to_base.vacuum.intent')
+    def handle_return_to_base_vacuum_intent(self, message: Message) -> None:
+        """Handle return_to_base vacuum intent."""
+        message.data["Entity"] = message.data.get("vacuum")
+        message.data["Action"] = "return_to_base"
+        self._handle_vacuum_actions(message)
+
+    @intent_handler('locate.vacuum.intent')
+    def handle_locate_vacuum_intent(self, message: Message) -> None:
+        """Handle locate vacuum intent."""
+        message.data["Entity"] = message.data.get("vacuum")
+        message.data["Action"] = "locate"
+        self._handle_vacuum_actions(message)
+
     @intent_handler('turn.on.intent')
     def handle_turn_on_intent(self, message: Message) -> None:
         """Handle turn on intent."""
@@ -235,12 +249,26 @@ class HomeAssistantSkill(FallbackSkill):
         message.data["Action"] = "close"
         self._handle_open_close_actions(message)
 
+    @intent_handler('start.intent')
+    def handle_start(self, message: Message) -> None:
+        """Handle start intent."""
+        message.data["Entity"] = message.data.get("entity")
+        message.data["Action"] = "start"
+        self._handle_start_stop_actions(message)
+
+    @intent_handler('pause.intent')
+    def handle_pause(self, message: Message) -> None:
+        """Handle pause intent."""
+        message.data["Entity"] = message.data.get("entity")
+        message.data["Action"] = "pause"
+        self._handle_start_stop_actions(message)
+
     @intent_handler('stop.intent')
     def handle_stop(self, message: Message) -> None:
         """Handle stop intent."""
         message.data["Entity"] = message.data.get("entity")
         message.data["Action"] = "stop"
-        self._handle_stop_actions(message)
+        self._handle_start_stop_actions(message)
 
     @intent_handler('toggle.intent')
     def handle_toggle_intent(self, message: Message) -> None:
@@ -292,7 +320,6 @@ class HomeAssistantSkill(FallbackSkill):
     @intent_handler('tracker.intent')
     def handle_tracker_intent(self, message: Message) -> None:
         """Handle tracker intent."""
-        self.log.debug("Turn on intent on entity: %s", message.data.get("tracker"))
         message.data["Entity"] = message.data.get("tracker")
         self._handle_tracker(message)
 
@@ -331,6 +358,25 @@ class HomeAssistantSkill(FallbackSkill):
 
         self.gui.clear()
         self.gui.show_image(f"{self.ha_client.url}{entity_picture}", override_idle=15)
+
+    def _handle_vacuum_actions(self, message):
+        """Handler for vacuum actions."""
+        entity = message.data["Entity"]
+        action = message.data["Action"]
+
+        ha_entity = self._find_entity(entity, ['vacuum'])
+        # Exit if entity not found or is unavailabe
+        if not ha_entity or not self._check_availability(ha_entity):
+            return
+
+        entity = ha_entity['id']
+        domain = entity.split(".")[0]
+
+        ha_data = {'entity_id': ha_entity['id']}
+
+        self.ha_client.execute_service(domain, action, ha_data)
+
+        return
 
     def _handle_turn_actions(self, message: Message) -> None:
         """Handler for turn on/off and toggle actions."""
@@ -373,7 +419,8 @@ class HomeAssistantSkill(FallbackSkill):
                 'switch',
                 'scene',
                 'input_boolean',
-                'climate'
+                'climate',
+                'vacuum'
             ]
         )
 
@@ -496,11 +543,12 @@ class HomeAssistantSkill(FallbackSkill):
 
         return
 
-    def _handle_stop_actions(self, message):
+    def _handle_start_stop_actions(self, message):
         """Handler for stop actions."""
         entity = message.data["Entity"]
+        action = message.data["Action"]
 
-        ha_entity = self._find_entity(entity, ['cover'])
+        ha_entity = self._find_entity(entity, ['cover', 'vacuum'])
         # Exit if entity not found or is unavailabe
         if not ha_entity or not self._check_availability(ha_entity):
             return
@@ -510,15 +558,24 @@ class HomeAssistantSkill(FallbackSkill):
 
         ha_data = {'entity_id': ha_entity['id']}
 
-        if domain == "cover":
-            response = self.ha_client.execute_service("cover", "stop_cover", ha_data)
+        if domain == 'cover':
+            response = self.ha_client.execute_service(domain, action + '_cover', ha_data)
+        else:
+            response = self.ha_client.execute_service(domain, action, ha_data)
 
-            if response.status_code != 200:
-                return
-
-            self.speak_dialog("homeassistant.device.stopped",
-                              data=ha_entity)
+        if response.status_code != 200:
             return
+
+        if action == 'start':
+            self.speak_dialog('homeassistant.device.started',
+                            data=ha_entity)
+        elif action == 'stop':
+            self.speak_dialog('homeassistant.device.stopped',
+                            data=ha_entity)
+        elif action == 'pause':
+            self.speak_dialog('homeassistant.device.paused',
+                            data=ha_entity)
+
         return
 
     def _handle_light_adjust(self, message: Message) -> None:
